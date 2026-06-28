@@ -34,6 +34,16 @@ const subjects = [
         id: "inner-products",
         title: "6. 内積と直交性",
         description: "内積、ノルム、直交射影、グラム・シュミットを扱います。"
+      },
+      {
+        id: "symmetric-quadratic",
+        title: "7. 対称行列と二次形式",
+        description: "対称行列、直交対角化、正定値性、二次形式を扱います。"
+      },
+      {
+        id: "canonical-forms",
+        title: "8. 標準形と行列分解",
+        description: "Cayley-Hamilton、最小多項式、ジョルダン形、LU分解を確認します。"
       }
     ],
     problems: [
@@ -408,6 +418,446 @@ const subjects = [
         choices: ["(0,1)", "(1,0)", "(1,1)", "(-1,1)"],
         answerIndex: 0,
         explanation: "u2 から u1 への射影 (1,0) を引くと (1,1)-(1,0)=(0,1) です。"
+      },
+      {
+        id: "la-zero-vector-dependence",
+        sectionId: "vectors",
+        title: "零ベクトルを含む集合",
+        topic: "一次独立",
+        difficulty: "basic",
+        prompt: "ベクトルの集合 {v1, 0, v3} について必ず正しいものはどれか。",
+        choices: ["一次従属である", "一次独立である", "基底である", "空集合である"],
+        answerIndex: 0,
+        explanation: "零ベクトルを含む集合は、零ベクトルの係数だけを非零にしても線形結合が0になるため一次従属です。"
+      },
+      {
+        id: "la-dimension-subspace-r4",
+        sectionId: "vectors",
+        title: "部分空間の次元",
+        topic: "次元",
+        difficulty: "standard",
+        prompt: "R^4 の部分空間 W={(x1,x2,x3,x4) | x1+x2=0, x3=0} の次元はどれか。",
+        choices: ["2", "1", "3", "4"],
+        answerIndex: 0,
+        explanation: "条件から x2=-x1, x3=0。自由変数は x1 と x4 の2つなので次元は2です。"
+      },
+      {
+        id: "la-basis-extension",
+        sectionId: "vectors",
+        title: "基底への拡張",
+        topic: "基底",
+        difficulty: "standard",
+        prompt: "R^3 の一次独立な2本のベクトルについて正しいものはどれか。",
+        choices: ["もう1本を加えて R^3 の基底に拡張できる", "必ず R^3 全体を張る", "必ず一次従属である", "零ベクトルを含む"],
+        answerIndex: 0,
+        explanation: "有限次元ベクトル空間では、一次独立な集合は基底へ拡張できます。"
+      },
+      {
+        id: "la-sum-subspaces-dimension",
+        sectionId: "vectors",
+        title: "部分空間の和の次元",
+        topic: "次元公式",
+        difficulty: "advanced",
+        prompt: "dim U=3, dim W=2, dim(U∩W)=1 のとき dim(U+W) はどれか。",
+        choices: ["4", "5", "6", "1"],
+        answerIndex: 0,
+        explanation: "dim(U+W)=dim U+dim W-dim(U∩W)=3+2-1=4 です。"
+      },
+      {
+        id: "la-change-of-basis-concept",
+        sectionId: "vectors",
+        title: "基底変換行列",
+        topic: "基底変換",
+        difficulty: "advanced",
+        prompt: "基底 B の座標 [v]_B から標準座標 v へ戻す行列の列に並ぶものはどれか。",
+        choices: ["基底 B の各ベクトル", "v の成分を昇順に並べたもの", "零ベクトル", "単位行列の対角成分だけ"],
+        answerIndex: 0,
+        explanation: "基底ベクトルを列に並べた行列 P に対して、v=P[v]_B となります。"
+      },
+      {
+        id: "la-matrix-associative",
+        sectionId: "matrices",
+        title: "行列積の結合法則",
+        topic: "行列計算",
+        difficulty: "basic",
+        prompt: "積が定義できる行列 A,B,C について一般に正しいものはどれか。",
+        choices: ["(AB)C=A(BC)", "AB=BA", "A+B=AB", "A^2=A"],
+        answerIndex: 0,
+        explanation: "行列積は一般に非可換ですが、結合法則 (AB)C=A(BC) は成り立ちます。"
+      },
+      {
+        id: "la-transpose-product",
+        sectionId: "matrices",
+        title: "積の転置",
+        topic: "転置行列",
+        difficulty: "standard",
+        prompt: "行列積 AB の転置として正しいものはどれか。",
+        choices: ["(AB)^T=B^T A^T", "(AB)^T=A^T B^T", "(AB)^T=AB", "(AB)^T=A+B"],
+        answerIndex: 0,
+        explanation: "積の転置では順序が反転し、(AB)^T=B^T A^T です。"
+      },
+      {
+        id: "la-elementary-row-operation-det",
+        sectionId: "matrices",
+        title: "行基本変形と行列式",
+        topic: "行列式",
+        difficulty: "standard",
+        prompt: "行列の2つの行を入れ替えると、行列式はどう変化するか。",
+        choices: ["符号が反転する", "必ず0になる", "2倍になる", "変化しない"],
+        answerIndex: 0,
+        explanation: "2行の入れ替えは行列式の符号を反転させます。"
+      },
+      {
+        id: "la-rank-product-inequality",
+        sectionId: "matrices",
+        title: "積の階数",
+        topic: "階数",
+        difficulty: "advanced",
+        prompt: "行列積 AB について一般に正しい不等式はどれか。",
+        choices: ["rank(AB) <= min(rank(A), rank(B))", "rank(AB)=rank(A)+rank(B)", "rank(AB)>rank(A)", "rank(AB)>rank(B)"],
+        answerIndex: 0,
+        explanation: "AB の像は A の像に含まれ、また B で失われた次元は戻らないため、この不等式が成り立ちます。"
+      },
+      {
+        id: "la-block-diagonal-det",
+        sectionId: "matrices",
+        title: "ブロック対角行列",
+        topic: "行列式",
+        difficulty: "advanced",
+        prompt: "ブロック対角行列 diag(A,B) の行列式として正しいものはどれか。",
+        choices: ["det(A)det(B)", "det(A)+det(B)", "det(A)-det(B)", "0"],
+        answerIndex: 0,
+        explanation: "ブロック対角行列の行列式は、各対角ブロックの行列式の積です。"
+      },
+      {
+        id: "la-system-parametric",
+        sectionId: "systems",
+        title: "解のパラメータ表示",
+        topic: "自由変数",
+        difficulty: "standard",
+        prompt: "方程式 x+y+z=0 の解空間の次元はどれか。",
+        choices: ["2", "1", "3", "0"],
+        answerIndex: 0,
+        explanation: "1本の独立な一次条件が R^3 に入るため、自由変数は2つで次元は2です。"
+      },
+      {
+        id: "la-system-affine-solution",
+        sectionId: "systems",
+        title: "非同次方程式の解集合",
+        topic: "解空間",
+        difficulty: "standard",
+        prompt: "Ax=b の1つの解を xp とし、Ax=0 の解空間を N とする。Ax=b の全解はどれか。",
+        choices: ["xp+N", "N のみ", "{0} のみ", "A の列空間そのもの"],
+        answerIndex: 0,
+        explanation: "非同次方程式の全解は、特殊解 xp に同次方程式の解を足したアフィン空間です。"
+      },
+      {
+        id: "la-system-pivot-columns",
+        sectionId: "systems",
+        title: "ピボット列",
+        topic: "掃き出し法",
+        difficulty: "standard",
+        prompt: "階段形でピボットがある列が表すものとして正しいものはどれか。",
+        choices: ["基本変数に対応する列", "自由変数に対応する列", "必ず零列", "右辺だけ"],
+        answerIndex: 0,
+        explanation: "ピボット列は基本変数を決める列です。ピボットのない列が自由変数に対応します。"
+      },
+      {
+        id: "la-system-cramer",
+        sectionId: "systems",
+        title: "クラメルの公式",
+        topic: "連立一次方程式",
+        difficulty: "advanced",
+        prompt: "n次正方行列 A で det(A) != 0 のとき Ax=b の解について正しいものはどれか。",
+        choices: ["クラメルの公式で各成分を表せる", "解は存在しない", "必ず無数に存在する", "自由変数がn個ある"],
+        answerIndex: 0,
+        explanation: "det(A) != 0 なら A は可逆で一意解を持ち、クラメルの公式を適用できます。"
+      },
+      {
+        id: "la-system-consistency-column-space",
+        sectionId: "systems",
+        title: "列空間と解の存在",
+        topic: "列空間",
+        difficulty: "advanced",
+        prompt: "Ax=b が解を持つことと同値な条件はどれか。",
+        choices: ["b が A の列空間に属する", "b が必ず零ベクトルである", "A が零行列である", "A が対角行列である"],
+        answerIndex: 0,
+        explanation: "Ax は A の列ベクトルの線形結合なので、b が列空間にあることが解の存在条件です。"
+      },
+      {
+        id: "la-linear-map-injective",
+        sectionId: "linear-maps",
+        title: "単射の判定",
+        topic: "核",
+        difficulty: "standard",
+        prompt: "線形写像 T:V -> W が単射であることと同値な条件はどれか。",
+        choices: ["ker(T)={0}", "Im(T)={0}", "T(0)≠0", "rank(T)=0"],
+        answerIndex: 0,
+        explanation: "線形写像は、核が零ベクトルだけのとき、かつそのときに限り単射です。"
+      },
+      {
+        id: "la-linear-map-surjective",
+        sectionId: "linear-maps",
+        title: "全射の判定",
+        topic: "像",
+        difficulty: "standard",
+        prompt: "T:V -> W が全射であることと同値な条件はどれか。",
+        choices: ["Im(T)=W", "ker(T)=V", "T(0)≠0", "dim V=0"],
+        answerIndex: 0,
+        explanation: "全射とは、終域 W のすべての元が像として現れること、つまり Im(T)=W です。"
+      },
+      {
+        id: "la-linear-map-composition",
+        sectionId: "linear-maps",
+        title: "合成写像の行列",
+        topic: "行列表示",
+        difficulty: "standard",
+        prompt: "標準基底で T の行列が A、S の行列が B のとき、S∘T の行列はどれか。",
+        choices: ["BA", "AB", "A+B", "A^T B"],
+        answerIndex: 0,
+        explanation: "先に T を適用し、次に S を適用するので、列ベクトルに対する行列は BA です。"
+      },
+      {
+        id: "la-linear-map-isomorphism",
+        sectionId: "linear-maps",
+        title: "同型写像",
+        topic: "同型",
+        difficulty: "advanced",
+        prompt: "有限次元ベクトル空間 V,W が同型であるための十分条件として正しいものはどれか。",
+        choices: ["dim V=dim W", "V が空集合である", "W が零空間でない", "任意の写像が線形である"],
+        answerIndex: 0,
+        explanation: "同じ体上の有限次元ベクトル空間は、次元が等しければ同型です。"
+      },
+      {
+        id: "la-linear-functional",
+        sectionId: "linear-maps",
+        title: "線形汎関数",
+        topic: "双対空間",
+        difficulty: "advanced",
+        prompt: "R^3 から R への線形写像 f(x,y,z)=2x-y+z について正しいものはどれか。",
+        choices: ["線形汎関数である", "線形ではない", "値域は R^3 である", "核は空集合である"],
+        answerIndex: 0,
+        explanation: "スカラー値の線形写像は線形汎関数です。f は加法とスカラー倍を保ちます。"
+      },
+      {
+        id: "la-eigen-nullspace",
+        sectionId: "eigenvalues",
+        title: "固有空間",
+        topic: "固有空間",
+        difficulty: "standard",
+        prompt: "A の固有値 λ に対応する固有空間として正しいものはどれか。",
+        choices: ["ker(A-λI)", "Im(A+λI)", "ker(A)+ker(I)", "A の列空間そのもの"],
+        answerIndex: 0,
+        explanation: "固有ベクトルは (A-λI)v=0 を満たす非零ベクトルなので、固有空間は ker(A-λI) です。"
+      },
+      {
+        id: "la-eigen-algebraic-geometric",
+        sectionId: "eigenvalues",
+        title: "代数的重複度と幾何的重複度",
+        topic: "重複度",
+        difficulty: "advanced",
+        prompt: "固有値 λ の幾何的重複度について一般に正しいものはどれか。",
+        choices: ["1以上で代数的重複度以下", "必ず0", "必ず代数的重複度より大きい", "行列のサイズより大きい"],
+        answerIndex: 0,
+        explanation: "固有値なら固有ベクトルが存在するため幾何的重複度は1以上で、代数的重複度以下です。"
+      },
+      {
+        id: "la-cayley-hamilton-basic",
+        sectionId: "eigenvalues",
+        title: "Cayley-Hamilton の定理",
+        topic: "固有多項式",
+        difficulty: "advanced",
+        prompt: "行列 A の固有多項式を p(t) とする。Cayley-Hamilton の定理の主張はどれか。",
+        choices: ["p(A)=0", "p(A)=I", "p(0)=1", "A=0"],
+        answerIndex: 0,
+        explanation: "Cayley-Hamilton の定理は、行列が自分の固有多項式を満たす、つまり p(A)=0 という主張です。"
+      },
+      {
+        id: "la-diagonalization-condition",
+        sectionId: "eigenvalues",
+        title: "対角化の条件",
+        topic: "対角化",
+        difficulty: "advanced",
+        prompt: "n次行列 A が対角化可能であることと同値な条件はどれか。",
+        choices: ["一次独立な固有ベクトルが n 本存在する", "固有値が1つもない", "det(A)=0", "A が零行列でない"],
+        answerIndex: 0,
+        explanation: "対角化可能性は、空間全体を張る固有ベクトル基底が存在することと同値です。"
+      },
+      {
+        id: "la-power-diagonalization",
+        sectionId: "eigenvalues",
+        title: "対角化とべき乗",
+        topic: "対角化",
+        difficulty: "advanced",
+        prompt: "A=PDP^{-1} と対角化されるとき、A^k として正しいものはどれか。",
+        choices: ["PD^kP^{-1}", "P^kDP^{-1}", "PDP^{-k}", "D^k のみ"],
+        answerIndex: 0,
+        explanation: "A^k=(PDP^{-1})^k=PD^kP^{-1} となり、対角行列のべき乗に帰着できます。"
+      },
+      {
+        id: "la-cauchy-schwarz",
+        sectionId: "inner-products",
+        title: "Cauchy-Schwarz の不等式",
+        topic: "内積",
+        difficulty: "standard",
+        prompt: "内積空間で常に成り立つ不等式はどれか。",
+        choices: ["|<u,v>| <= ||u|| ||v||", "|<u,v>| >= ||u|| ||v||", "<u,v>=||u||+||v||", "||u+v||=||u||+||v||"],
+        answerIndex: 0,
+        explanation: "Cauchy-Schwarz の不等式は |<u,v>| <= ||u|| ||v|| です。"
+      },
+      {
+        id: "la-orthogonal-complement",
+        sectionId: "inner-products",
+        title: "直交補空間",
+        topic: "直交補",
+        difficulty: "standard",
+        prompt: "R^3 で W=span{(1,0,0)} の直交補 W^⊥ はどれか。",
+        choices: ["{(0,y,z) | y,z in R}", "{(x,0,0) | x in R}", "R^3 全体", "{(1,1,1)}"],
+        answerIndex: 0,
+        explanation: "(1,0,0) と直交する条件は第1成分が0であることです。"
+      },
+      {
+        id: "la-orthonormal-basis-coordinates",
+        sectionId: "inner-products",
+        title: "正規直交基底での座標",
+        topic: "正規直交基底",
+        difficulty: "standard",
+        prompt: "{e1,e2} が正規直交基底のとき、v の e1 成分はどれか。",
+        choices: ["<v,e1>", "<e1,e2>", "||v||", "<v,v>"],
+        answerIndex: 0,
+        explanation: "正規直交基底では、各座標は基底ベクトルとの内積で求まります。"
+      },
+      {
+        id: "la-least-squares-normal-equation",
+        sectionId: "inner-products",
+        title: "最小二乗法の正規方程式",
+        topic: "最小二乗",
+        difficulty: "advanced",
+        prompt: "Ax≈b の最小二乗解が満たす正規方程式はどれか。",
+        choices: ["A^T A x=A^T b", "A x=0", "A^T x=b", "A A^T x=b"],
+        answerIndex: 0,
+        explanation: "残差 b-Ax が A の列空間に直交する条件から A^T(Ax-b)=0、つまり A^T A x=A^T b です。"
+      },
+      {
+        id: "la-orthogonal-matrix",
+        sectionId: "inner-products",
+        title: "直交行列",
+        topic: "直交行列",
+        difficulty: "advanced",
+        prompt: "実正方行列 Q が直交行列であることと同値な条件はどれか。",
+        choices: ["Q^T Q=I", "Q^T Q=0", "Q^2=0", "det(Q)=0"],
+        answerIndex: 0,
+        explanation: "直交行列は列ベクトルが正規直交基底をなし、Q^T Q=I を満たします。"
+      },
+      {
+        id: "la-symmetric-real-eigenvalues",
+        sectionId: "symmetric-quadratic",
+        title: "実対称行列の固有値",
+        topic: "対称行列",
+        difficulty: "basic",
+        prompt: "実対称行列について必ず正しいものはどれか。",
+        choices: ["固有値はすべて実数である", "固有値はすべて0である", "対角化できない", "行列式は必ず1である"],
+        answerIndex: 0,
+        explanation: "実対称行列の固有値はすべて実数で、直交対角化可能です。"
+      },
+      {
+        id: "la-symmetric-orthogonal-diagonalization",
+        sectionId: "symmetric-quadratic",
+        title: "直交対角化",
+        topic: "対称行列",
+        difficulty: "standard",
+        prompt: "実対称行列 A について成り立つ対角化の形はどれか。",
+        choices: ["Q^T A Q=D", "Q A Q=D で Q は任意", "A=0 のときだけ可能", "PAP=D"],
+        answerIndex: 0,
+        explanation: "実対称行列は直交行列 Q により Q^T A Q=D と直交対角化できます。"
+      },
+      {
+        id: "la-positive-definite-criterion",
+        sectionId: "symmetric-quadratic",
+        title: "正定値性",
+        topic: "二次形式",
+        difficulty: "standard",
+        prompt: "実対称行列 A が正定値であることの定義として正しいものはどれか。",
+        choices: ["任意の x≠0 に対して x^T A x>0", "任意の x に対して Ax=0", "det(A)=0", "A が上三角である"],
+        answerIndex: 0,
+        explanation: "正定値性は、非零ベクトル x に対して二次形式 x^T A x が常に正であることです。"
+      },
+      {
+        id: "la-sylvester-criterion-2x2",
+        sectionId: "symmetric-quadratic",
+        title: "Sylvester の判定法",
+        topic: "正定値",
+        difficulty: "advanced",
+        prompt: "2次実対称行列 [[a,b],[b,d]] が正定値である十分必要条件はどれか。",
+        choices: ["a>0 かつ ad-b^2>0", "a<0 かつ ad-b^2>0", "ad-b^2<0", "b=0 のみ"],
+        answerIndex: 0,
+        explanation: "Sylvester の判定法では、先頭主座小行列式がすべて正、つまり a>0 かつ det>0 です。"
+      },
+      {
+        id: "la-quadratic-form-diagonal",
+        sectionId: "symmetric-quadratic",
+        title: "二次形式の対角化",
+        topic: "二次形式",
+        difficulty: "advanced",
+        prompt: "実対称行列 A を直交対角化すると、二次形式 x^T A x は何に分解されるか。",
+        choices: ["固有値を係数に持つ平方和", "一次式の和", "常に0", "行列式そのもの"],
+        answerIndex: 0,
+        explanation: "直交座標変換により x^T A x は λ1 y1^2+...+λn yn^2 の形になります。"
+      },
+      {
+        id: "la-lu-factorization",
+        sectionId: "canonical-forms",
+        title: "LU分解",
+        topic: "行列分解",
+        difficulty: "standard",
+        prompt: "LU分解 A=LU において、通常 L と U はそれぞれどのような行列か。",
+        choices: ["下三角行列と上三角行列", "直交行列と対角行列", "零行列と単位行列", "対称行列と交代行列"],
+        answerIndex: 0,
+        explanation: "LU分解は行列を下三角行列 L と上三角行列 U の積に分解する方法です。"
+      },
+      {
+        id: "la-minimal-polynomial",
+        sectionId: "canonical-forms",
+        title: "最小多項式",
+        topic: "標準形",
+        difficulty: "advanced",
+        prompt: "行列 A の最小多項式 m(t) の特徴として正しいものはどれか。",
+        choices: ["m(A)=0 を満たすモニック多項式のうち次数最小", "固有多項式より必ず次数が大きい", "常に t のみ", "det(A) と同じ数"],
+        answerIndex: 0,
+        explanation: "最小多項式は、A を零化するモニック多項式のうち次数が最小のものです。"
+      },
+      {
+        id: "la-jordan-block-eigenvalue",
+        sectionId: "canonical-forms",
+        title: "ジョルダンブロック",
+        topic: "ジョルダン標準形",
+        difficulty: "advanced",
+        prompt: "ジョルダンブロック J=[[λ,1],[0,λ]] の固有値はどれか。",
+        choices: ["λ のみ", "λ と 1", "0 と λ", "1 のみ"],
+        answerIndex: 0,
+        explanation: "上三角行列の固有値は対角成分なので、固有値は λ のみです。"
+      },
+      {
+        id: "la-jordan-diagonalizable",
+        sectionId: "canonical-forms",
+        title: "ジョルダン形と対角化",
+        topic: "ジョルダン標準形",
+        difficulty: "advanced",
+        prompt: "複素数体上の行列が対角化可能であることをジョルダン標準形で述べるとどれか。",
+        choices: ["すべてのジョルダンブロックのサイズが1", "ジョルダンブロックが1つだけ", "固有値が1つだけ", "対角成分がすべて0"],
+        answerIndex: 0,
+        explanation: "対角化可能であることは、ジョルダン標準形に非自明な上隣接成分がないこと、つまりブロックサイズがすべて1であることです。"
+      },
+      {
+        id: "la-rational-canonical-purpose",
+        sectionId: "canonical-forms",
+        title: "標準形の役割",
+        topic: "標準形",
+        difficulty: "advanced",
+        prompt: "行列の標準形を学ぶ主な目的として最も適切なものはどれか。",
+        choices: ["基底を変えても変わらない構造を分類するため", "行列の成分をすべて正にするため", "すべての行列を単位行列にするため", "行列式を定義しないため"],
+        answerIndex: 0,
+        explanation: "標準形は相似変換で変わらない線形変換の構造を見やすくし、分類するために使います。"
       }
     ]
   },
