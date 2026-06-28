@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MathStudyApp</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: {
+          fontCache: "global"
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   </head>
   <body>
     <header class="topbar">
@@ -58,6 +70,14 @@
                 <option value="advanced">発展</option>
               </select>
             </label>
+            <label>
+              問題タイプ
+              <select id="problemTypeFilter">
+                <option value="all">すべて</option>
+                <option value="calculation">計算</option>
+                <option value="concept">概念</option>
+              </select>
+            </label>
             <button id="resetDataButton" class="ghost-button" type="button" title="学習記録をリセット">↺</button>
           </div>
         </div>
@@ -68,6 +88,7 @@
               <span id="problemSection"></span>
               <span id="problemTopic"></span>
               <span id="problemDifficulty"></span>
+              <span id="problemType"></span>
             </div>
             <h3 id="problemTitle"></h3>
             <p id="problemPrompt" class="problem-prompt"></p>

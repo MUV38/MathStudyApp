@@ -1127,6 +1127,294 @@ const subjects = [
         choices: ["ネットワーク構造を行列として扱い、階数や固有値で性質を調べられるから", "グラフでは数を使わないから", "すべてのグラフが対角行列だから", "固有値が常に存在しないから"],
         answerIndex: 0,
         explanation: "グラフは行列で表現でき、連結性、流れ、拡散などを階数や固有値の問題として調べられます。"
+      },
+      {
+        id: "la-calc-vector-addition",
+        sectionId: "vectors",
+        title: "ベクトルの和",
+        topic: "ベクトル計算",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "(2,-1,3)+(-4,5,1) はどれか。",
+        choices: ["(-2,4,4)", "(6,-6,2)", "(-2,6,4)", "(-4,4,3)"],
+        answerIndex: 0,
+        explanation: "成分ごとに足して、(2-4, -1+5, 3+1)=(-2,4,4) です。"
+      },
+      {
+        id: "la-calc-scalar-combination",
+        sectionId: "vectors",
+        title: "線形結合の計算",
+        topic: "線形結合",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "2(1,-2)+3(0,4) はどれか。",
+        choices: ["(2,8)", "(2,4)", "(2,16)", "(5,2)"],
+        answerIndex: 0,
+        explanation: "2(1,-2)=(2,-4), 3(0,4)=(0,12)。和は (2,8) です。"
+      },
+      {
+        id: "la-calc-coordinate-solve",
+        sectionId: "vectors",
+        title: "座標表示の計算",
+        topic: "座標表示",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "b1=(1,1), b2=(1,0)。v=(5,2)=a b1+b b2 のとき (a,b) はどれか。",
+        choices: ["(2,3)", "(3,2)", "(5,2)", "(2,5)"],
+        answerIndex: 0,
+        explanation: "a b1+b b2=(a+b,a)=(5,2)。a=2, b=3 です。"
+      },
+      {
+        id: "la-calc-matrix-entry",
+        sectionId: "matrices",
+        title: "行列積の一成分",
+        topic: "行列計算",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "A=[[1,3],[2,0]], B=[[4,1],[-1,2]]。AB の (1,2) 成分はどれか。",
+        choices: ["7", "5", "1", "3"],
+        answerIndex: 0,
+        explanation: "A の第1行と B の第2列の内積で、1*1+3*2=7 です。"
+      },
+      {
+        id: "la-calc-det-quick",
+        sectionId: "matrices",
+        title: "2x2行列式の暗算",
+        topic: "行列式",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "det [[3,1],[2,5]] はどれか。",
+        choices: ["13", "17", "7", "11"],
+        answerIndex: 0,
+        explanation: "3*5-1*2=15-2=13 です。"
+      },
+      {
+        id: "la-calc-trace",
+        sectionId: "matrices",
+        title: "跡の計算",
+        topic: "跡",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "A=[[2,4,0],[1,-3,5],[7,2,6]] の trace(A) はどれか。",
+        choices: ["5", "8", "11", "-1"],
+        answerIndex: 0,
+        explanation: "対角成分の和なので 2+(-3)+6=5 です。"
+      },
+      {
+        id: "la-calc-triangular-det",
+        sectionId: "matrices",
+        title: "三角行列の行列式",
+        topic: "行列式",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "U=[[2,4,1],[0,-1,3],[0,0,6]] の det(U) はどれか。",
+        choices: ["-12", "12", "8", "-6"],
+        answerIndex: 0,
+        explanation: "三角行列の行列式は対角成分の積です。2*(-1)*6=-12 です。"
+      },
+      {
+        id: "la-calc-two-equations",
+        sectionId: "systems",
+        title: "2元連立方程式",
+        topic: "連立一次方程式",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "x+y=5, x-y=1 の解 (x,y) はどれか。",
+        choices: ["(3,2)", "(2,3)", "(4,1)", "(1,4)"],
+        answerIndex: 0,
+        explanation: "2式を足すと 2x=6 なので x=3。y=2 です。"
+      },
+      {
+        id: "la-calc-homogeneous-param",
+        sectionId: "systems",
+        title: "同次方程式の解",
+        topic: "同次系",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "x+2y=0 の解の形はどれか。",
+        choices: ["(-2t,t)", "(2t,t)", "(t,-2t)", "(t,t)"],
+        answerIndex: 0,
+        explanation: "y=t とおくと x=-2t です。"
+      },
+      {
+        id: "la-calc-free-variables",
+        sectionId: "systems",
+        title: "自由変数の暗算",
+        topic: "自由変数",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "5変数の連立一次方程式で rank(A)=3、解が存在する。自由変数は何個か。",
+        choices: ["2", "3", "5", "8"],
+        answerIndex: 0,
+        explanation: "自由変数の数は 5-3=2 です。"
+      },
+      {
+        id: "la-calc-linear-map-value",
+        sectionId: "linear-maps",
+        title: "線形写像の値",
+        topic: "線形写像",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "T(x,y)=(2x-y, x+3y)。T(1,2) はどれか。",
+        choices: ["(0,7)", "(4,7)", "(0,5)", "(-1,7)"],
+        answerIndex: 0,
+        explanation: "(2*1-2, 1+3*2)=(0,7) です。"
+      },
+      {
+        id: "la-calc-kernel-line",
+        sectionId: "linear-maps",
+        title: "核の条件計算",
+        topic: "核",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "T(x,y,z)=x-y+z。ker(T) の条件はどれか。",
+        choices: ["x-y+z=0", "x+y+z=0", "x-y-z=1", "x=0 のみ"],
+        answerIndex: 0,
+        explanation: "核は T(x,y,z)=0 を満たす集合なので x-y+z=0 です。"
+      },
+      {
+        id: "la-calc-rank-nullity",
+        sectionId: "linear-maps",
+        title: "rank-nullity の計算",
+        topic: "rank-nullity",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "dim V=7, rank(T)=4 のとき dim ker(T) はどれか。",
+        choices: ["3", "4", "7", "11"],
+        answerIndex: 0,
+        explanation: "dim V=rank(T)+dim ker(T) なので 7=4+dim ker(T)。答えは3です。"
+      },
+      {
+        id: "la-calc-diagonal-eigen",
+        sectionId: "eigenvalues",
+        title: "対角行列の固有値",
+        topic: "固有値",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "diag(-2,4,4) の固有値として正しいものはどれか。",
+        choices: ["-2, 4", "-2 のみ", "4 のみ", "6"],
+        answerIndex: 0,
+        explanation: "対角行列の固有値は対角成分です。重複を除けば -2 と 4 です。"
+      },
+      {
+        id: "la-calc-char-2x2",
+        sectionId: "eigenvalues",
+        title: "2x2固有値の計算",
+        topic: "固有値",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "A=[[2,0],[0,5]] の固有多項式はどれか。",
+        choices: ["(λ-2)(λ-5)", "λ^2-7", "(λ+2)(λ+5)", "λ-10"],
+        answerIndex: 0,
+        explanation: "対角行列なので det(λI-A)=(λ-2)(λ-5) です。"
+      },
+      {
+        id: "la-calc-trace-det-eigen",
+        sectionId: "eigenvalues",
+        title: "固有値から跡と行列式",
+        topic: "固有値の性質",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "2次行列の固有値が -1 と 6。trace と det はどれか。",
+        choices: ["trace=5, det=-6", "trace=-6, det=5", "trace=7, det=6", "trace=5, det=6"],
+        answerIndex: 0,
+        explanation: "跡は和 -1+6=5、行列式は積 -1*6=-6 です。"
+      },
+      {
+        id: "la-calc-dot-product",
+        sectionId: "inner-products",
+        title: "内積の暗算",
+        topic: "内積",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "(2,-1,3)・(4,0,-2) はどれか。",
+        choices: ["2", "14", "8", "-2"],
+        answerIndex: 0,
+        explanation: "2*4+(-1)*0+3*(-2)=8-6=2 です。"
+      },
+      {
+        id: "la-calc-norm",
+        sectionId: "inner-products",
+        title: "ノルムの暗算",
+        topic: "ノルム",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "v=(1,2,2) の ||v|| はどれか。",
+        choices: ["3", "5", "9", "√5"],
+        answerIndex: 0,
+        explanation: "sqrt(1^2+2^2+2^2)=sqrt(9)=3 です。"
+      },
+      {
+        id: "la-calc-orthogonal-check",
+        sectionId: "inner-products",
+        title: "直交判定の暗算",
+        topic: "直交",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "u=(3,1), v=(1,-3) は直交しているか。",
+        choices: ["直交している", "直交していない", "平行である", "同じベクトルである"],
+        answerIndex: 0,
+        explanation: "内積は 3*1+1*(-3)=0 なので直交しています。"
+      },
+      {
+        id: "la-calc-positive-definite-2x2",
+        sectionId: "symmetric-quadratic",
+        title: "2x2正定値判定",
+        topic: "正定値",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "A=[[2,1],[1,3]] は正定値か。",
+        choices: ["正定値である", "正定値でない", "判定不能", "交代行列である"],
+        answerIndex: 0,
+        explanation: "先頭主座小行列式は 2>0、det(A)=6-1=5>0。よって正定値です。"
+      },
+      {
+        id: "la-calc-quadratic-form",
+        sectionId: "symmetric-quadratic",
+        title: "二次形式の値",
+        topic: "二次形式",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "A=diag(2,3), x=(1,2)。x^T A x はどれか。",
+        choices: ["14", "8", "10", "12"],
+        answerIndex: 0,
+        explanation: "2*1^2+3*2^2=2+12=14 です。"
+      },
+      {
+        id: "la-calc-projection-idempotent",
+        sectionId: "fundamental-decompositions",
+        title: "射影行列の確認",
+        topic: "射影",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "P=[[1,0],[0,0]] について P^2 はどれか。",
+        choices: ["P と等しい", "0 と等しい", "I と等しい", "-P と等しい"],
+        answerIndex: 0,
+        explanation: "P^2=[[1,0],[0,0]]=P なので射影行列の性質を満たします。"
+      },
+      {
+        id: "la-calc-singular-value-diagonal",
+        sectionId: "fundamental-decompositions",
+        title: "対角行列の特異値",
+        topic: "SVD",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "A=diag(-3,2) の特異値はどれか。",
+        choices: ["3, 2", "-3, 2", "1, 5", "6 のみ"],
+        answerIndex: 0,
+        explanation: "対角行列の特異値は対角成分の絶対値なので 3 と 2 です。"
+      },
+      {
+        id: "la-calc-condition-number-diagonal",
+        sectionId: "fundamental-decompositions",
+        title: "対角行列の条件数",
+        topic: "数値線形代数",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "A=diag(10,2) の2ノルム条件数はどれか。",
+        choices: ["5", "12", "8", "20"],
+        answerIndex: 0,
+        explanation: "特異値は 10 と 2。条件数は最大特異値/最小特異値=10/2=5 です。"
       }
     ]
   },
@@ -1155,11 +1443,17 @@ const difficultyLabels = {
   advanced: "発展"
 };
 
+const problemTypeLabels = {
+  concept: "概念",
+  calculation: "計算"
+};
+
 const state = {
   subjectId: "linear-algebra",
   sectionId: "vectors",
   mode: "practice",
   difficulty: "all",
+  problemType: "all",
   currentProblemId: null,
   selectedChoice: null,
   answered: false,
@@ -1176,6 +1470,7 @@ const els = {
   currentSectionLabel: document.querySelector("#currentSectionLabel"),
   modeTitle: document.querySelector("#modeTitle"),
   difficultyFilter: document.querySelector("#difficultyFilter"),
+  problemTypeFilter: document.querySelector("#problemTypeFilter"),
   resetDataButton: document.querySelector("#resetDataButton"),
   practiceView: document.querySelector("#practiceView"),
   reviewView: document.querySelector("#reviewView"),
@@ -1183,6 +1478,7 @@ const els = {
   problemSection: document.querySelector("#problemSection"),
   problemTopic: document.querySelector("#problemTopic"),
   problemDifficulty: document.querySelector("#problemDifficulty"),
+  problemType: document.querySelector("#problemType"),
   problemTitle: document.querySelector("#problemTitle"),
   problemPrompt: document.querySelector("#problemPrompt"),
   answerChoices: document.querySelector("#answerChoices"),
@@ -1245,7 +1541,90 @@ function getFilteredProblems() {
   if (state.difficulty !== "all") {
     problems = problems.filter((problem) => problem.difficulty === state.difficulty);
   }
+  if (state.problemType !== "all") {
+    problems = problems.filter((problem) => getProblemType(problem) === state.problemType);
+  }
   return problems;
+}
+
+function getProblemType(problem) {
+  return problem.type ?? "concept";
+}
+
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function matrixLiteralToTex(literal) {
+  const body = literal.slice(2, -2);
+  const rows = body.split(/\],\s*\[/).map((row) =>
+    row
+      .replace(/^\[/, "")
+      .replace(/\]$/, "")
+      .split(",")
+      .map((cell) => cell.trim())
+      .join(" & ")
+  );
+  return `\\(\\begin{pmatrix}${rows.join(" \\\\ ")}\\end{pmatrix}\\)`;
+}
+
+function formatMathText(text) {
+  const placeholders = [];
+  const stashMath = (tex) => {
+    const token = `@@MATH_${placeholders.length}@@`;
+    placeholders.push(tex);
+    return token;
+  };
+
+  let formatted = text.replace(/\[\[[\s\S]*?\]\]/g, (match) => {
+    return stashMath(matrixLiteralToTex(match));
+  });
+
+  formatted = escapeHtml(formatted);
+
+  const replacements = [
+    [/\bR\^(\d+)\b/g, (_match, dim) => `\\(R^${dim}\\)`],
+    [/\bP(\d+)\b/g, (_match, dim) => `\\(P_${dim}\\)`],
+    [/\bdet\(([^)]+)\)/g, (_match, value) => `\\(\\det(${value})\\)`],
+    [/\brank\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{rank}(${value})\\)`],
+    [/\btrace\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{trace}(${value})\\)`],
+    [/\bker\(([^)]+)\)/g, (_match, value) => `\\(\\ker(${value})\\)`],
+    [/\bIm\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{Im}(${value})\\)`],
+    [/\bdiag\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{diag}(${value})\\)`],
+    [/\bdim ([A-Z][A-Za-z0-9]*)/g, (_match, value) => `\\(\\dim ${value}\\)`],
+    [/\bCol\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{Col}(${value})\\)`],
+    [/\bRow\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{Row}(${value})\\)`],
+    [/\bsqrt\(([^)]+)\)/g, (_match, value) => `\\(\\sqrt{${value}}\\)`],
+    [/\|\|([^|]+)\|\|/g, (_match, value) => `\\(\\lVert ${value} \\rVert\\)`],
+    [/([A-Za-zλΣ]+)\^\{?(-?1|T|k|\d+)\}?/g, (_match, base, exp) => `\\(${base}^{${exp}}\\)`],
+    [/\(([+-]?\d+(?:\/\d+)?|[a-zA-Z]\d?)(?:,\s*([+-]?\d+(?:\/\d+)?|[a-zA-Z]\d?)){1,5}\)/g, (match) => `\\(${match}\\)`],
+    [/([A-Za-zλΣ][A-Za-z0-9λΣ]*)=([A-Za-z0-9λΣ+\-*/^{}()]+)/g, (_match, left, right) => `\\(${left}=${right}\\)`],
+    [/([xyz](?:[+\-][xyz])*)=([+-]?\d+)/g, (_match, left, right) => `\\(${left}=${right}\\)`]
+  ];
+
+  replacements.forEach(([pattern, toTex]) => {
+    formatted = formatted.replace(pattern, (...args) => stashMath(toTex(...args)));
+  });
+
+  placeholders.forEach((value, index) => {
+    formatted = formatted.replaceAll(`@@MATH_${index}@@`, value);
+  });
+
+  return formatted;
+}
+
+function setMathContent(element, text) {
+  element.innerHTML = formatMathText(text);
+}
+
+function queueMathTypeset() {
+  if (!window.MathJax?.typesetPromise) return;
+  window.MathJax.typesetPromise([document.body]).catch(() => {});
 }
 
 function getLatestAttempt(problemId) {
@@ -1375,6 +1754,7 @@ function renderProblem() {
     els.problemSection.textContent = getSection()?.title ?? "";
     els.problemTopic.textContent = "";
     els.problemDifficulty.textContent = "";
+    els.problemType.textContent = "";
     els.problemTitle.textContent = "問題がありません";
     els.problemPrompt.textContent = "この条件に合う問題はまだ登録されていません。";
     els.answerChoices.innerHTML = "";
@@ -1386,8 +1766,9 @@ function renderProblem() {
   els.problemSection.textContent = problem.sectionTitle;
   els.problemTopic.textContent = problem.topic;
   els.problemDifficulty.textContent = difficultyLabels[problem.difficulty];
+  els.problemType.textContent = problemTypeLabels[getProblemType(problem)];
   els.problemTitle.textContent = problem.title;
-  els.problemPrompt.textContent = problem.prompt;
+  setMathContent(els.problemPrompt, problem.prompt);
   els.answerChoices.innerHTML = "";
   els.feedback.className = "feedback hidden";
   els.feedback.textContent = "";
@@ -1397,7 +1778,7 @@ function renderProblem() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "choice-button";
-    button.textContent = choice;
+    button.innerHTML = formatMathText(choice);
     if (state.selectedChoice === index) {
       button.classList.add("selected");
     }
@@ -1414,6 +1795,7 @@ function renderProblem() {
     });
     els.answerChoices.append(button);
   });
+  queueMathTypeset();
 }
 
 function submitAnswer() {
@@ -1445,9 +1827,13 @@ function submitAnswer() {
   renderSections();
 
   els.feedback.className = `feedback ${correct ? "correct" : "incorrect"}`;
-  els.feedback.textContent = correct
-    ? `正解です。${problem.explanation}`
-    : `不正解です。正解は「${problem.choices[problem.answerIndex]}」。${problem.explanation}`;
+  setMathContent(
+    els.feedback,
+    correct
+      ? `正解です。${problem.explanation}`
+      : `不正解です。正解は「${problem.choices[problem.answerIndex]}」。${problem.explanation}`
+  );
+  queueMathTypeset();
 }
 
 function renderReview() {
@@ -1466,9 +1852,9 @@ function renderReview() {
     const item = document.createElement("article");
     item.className = "review-item";
     item.innerHTML = `
-      <div class="item-meta"><span>${problem.sectionTitle}</span><span>${problem.topic}</span><span>${difficultyLabels[problem.difficulty]}</span></div>
+      <div class="item-meta"><span>${problem.sectionTitle}</span><span>${problem.topic}</span><span>${difficultyLabels[problem.difficulty]}</span><span>${problemTypeLabels[getProblemType(problem)]}</span></div>
       <h3>${problem.title}</h3>
-      <p>${problem.prompt}</p>
+      <p>${formatMathText(problem.prompt)}</p>
       <button class="review-action" type="button">この問題を解く</button>
     `;
     item.querySelector("button").addEventListener("click", () => {
@@ -1505,7 +1891,7 @@ function renderHistory() {
         <span>${attempt.correct ? "正解" : "不正解"}</span>
       </div>
       <h3>${problem.title}</h3>
-      <p>選択: ${problem.choices[attempt.selectedChoice]}</p>
+      <p>選択: ${formatMathText(problem.choices[attempt.selectedChoice])}</p>
     `;
     els.historyList.append(item);
   });
@@ -1517,6 +1903,7 @@ function render() {
   els.currentSubjectLabel.textContent = subject.name;
   els.currentSectionLabel.textContent = section?.title ?? "";
   els.difficultyFilter.value = state.difficulty;
+  els.problemTypeFilter.value = state.problemType;
   renderSubjects();
   renderSections();
   renderMode();
@@ -1524,6 +1911,7 @@ function render() {
   renderProblem();
   renderReview();
   renderHistory();
+  queueMathTypeset();
 }
 
 document.querySelectorAll(".mode-button").forEach((button) => {
@@ -1535,6 +1923,12 @@ document.querySelectorAll(".mode-button").forEach((button) => {
 
 els.difficultyFilter.addEventListener("change", () => {
   state.difficulty = els.difficultyFilter.value;
+  pickProblem();
+  render();
+});
+
+els.problemTypeFilter.addEventListener("change", () => {
+  state.problemType = els.problemTypeFilter.value;
   pickProblem();
   render();
 });
