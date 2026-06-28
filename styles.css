@@ -293,6 +293,15 @@ select {
   line-height: 1.5;
 }
 
+.choice-button mjx-container,
+.problem-prompt mjx-container,
+.feedback mjx-container,
+.history-item mjx-container,
+.review-item mjx-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .choice-button.correct {
   border-color: var(--ok);
   background: var(--ok-soft);
