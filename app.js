@@ -44,6 +44,11 @@ const subjects = [
         id: "canonical-forms",
         title: "8. 標準形と行列分解",
         description: "Cayley-Hamilton、最小多項式、ジョルダン形、LU分解を確認します。"
+      },
+      {
+        id: "fundamental-decompositions",
+        title: "9. 基本部分空間と応用的分解",
+        description: "行空間・列空間・零空間、相似、QR/SVD、射影行列を扱います。"
       }
     ],
     problems: [
@@ -858,6 +863,270 @@ const subjects = [
         choices: ["基底を変えても変わらない構造を分類するため", "行列の成分をすべて正にするため", "すべての行列を単位行列にするため", "行列式を定義しないため"],
         answerIndex: 0,
         explanation: "標準形は相似変換で変わらない線形変換の構造を見やすくし、分類するために使います。"
+      },
+      {
+        id: "la-four-fundamental-subspaces",
+        sectionId: "fundamental-decompositions",
+        title: "4つの基本部分空間",
+        topic: "基本部分空間",
+        difficulty: "basic",
+        prompt: "m×n 行列 A に対して、通常「4つの基本部分空間」に含まれないものはどれか。",
+        choices: ["対角空間", "列空間", "行空間", "零空間"],
+        answerIndex: 0,
+        explanation: "基本部分空間は列空間、行空間、零空間、左零空間です。対角空間は通常この分類には含めません。"
+      },
+      {
+        id: "la-column-space-definition",
+        sectionId: "fundamental-decompositions",
+        title: "列空間",
+        topic: "列空間",
+        difficulty: "basic",
+        prompt: "行列 A の列空間として正しい説明はどれか。",
+        choices: ["A の列ベクトルが張る空間", "A の行ベクトルが張る空間", "Ax=0 の解集合", "A の固有値の集合"],
+        answerIndex: 0,
+        explanation: "列空間 Col(A) は A の列ベクトルの線形結合全体です。"
+      },
+      {
+        id: "la-row-space-definition",
+        sectionId: "fundamental-decompositions",
+        title: "行空間",
+        topic: "行空間",
+        difficulty: "basic",
+        prompt: "行列 A の行空間はどの空間の部分空間か。A は m×n 行列とする。",
+        choices: ["R^n", "R^m", "R^{m+n}", "R のみ"],
+        answerIndex: 0,
+        explanation: "A の各行は n 成分のベクトルなので、行空間は R^n の部分空間です。"
+      },
+      {
+        id: "la-left-nullspace-definition",
+        sectionId: "fundamental-decompositions",
+        title: "左零空間",
+        topic: "左零空間",
+        difficulty: "standard",
+        prompt: "m×n 行列 A の左零空間として正しいものはどれか。",
+        choices: ["ker(A^T)", "ker(A)", "Col(A)", "Row(A)"],
+        answerIndex: 0,
+        explanation: "左零空間は A^T y=0 を満たす y の空間、つまり ker(A^T) です。"
+      },
+      {
+        id: "la-row-null-orthogonal",
+        sectionId: "fundamental-decompositions",
+        title: "行空間と零空間の直交性",
+        topic: "基本部分空間",
+        difficulty: "standard",
+        prompt: "行列 A について、行空間 Row(A) と直交補の関係にある空間はどれか。",
+        choices: ["ker(A)", "Col(A)", "ker(A^T)", "A の固有空間すべて"],
+        answerIndex: 0,
+        explanation: "Ax=0 は A のすべての行ベクトルと x が直交することを意味するので、ker(A)=Row(A)^⊥ です。"
+      },
+      {
+        id: "la-column-left-null-orthogonal",
+        sectionId: "fundamental-decompositions",
+        title: "列空間と左零空間",
+        topic: "基本部分空間",
+        difficulty: "standard",
+        prompt: "m×n 行列 A について、Col(A)^⊥ と等しい空間はどれか。",
+        choices: ["ker(A^T)", "ker(A)", "Row(A)", "R^n 全体"],
+        answerIndex: 0,
+        explanation: "y が列空間に直交することは、A のすべての列との内積が0、つまり A^T y=0 と同値です。"
+      },
+      {
+        id: "la-rank-row-column",
+        sectionId: "fundamental-decompositions",
+        title: "行階数と列階数",
+        topic: "階数",
+        difficulty: "standard",
+        prompt: "任意の行列 A について常に成り立つことはどれか。",
+        choices: ["行階数 = 列階数", "行階数 = 行数", "列階数 = 列数", "行階数 + 列階数 = 0"],
+        answerIndex: 0,
+        explanation: "行階数と列階数は常に一致し、その共通値を rank(A) と呼びます。"
+      },
+      {
+        id: "la-nullity-matrix",
+        sectionId: "fundamental-decompositions",
+        title: "行列の退化次数",
+        topic: "階数・退化次数",
+        difficulty: "standard",
+        prompt: "A が 4×6 行列で rank(A)=3 のとき、ker(A) の次元はどれか。",
+        choices: ["3", "1", "4", "6"],
+        answerIndex: 0,
+        explanation: "rank-nullity より、定義域 R^6 の次元 6 = rank 3 + nullity。したがって nullity=3 です。"
+      },
+      {
+        id: "la-pivot-columns-basis-column-space",
+        sectionId: "fundamental-decompositions",
+        title: "列空間の基底",
+        topic: "ピボット列",
+        difficulty: "standard",
+        prompt: "A を行基本変形してピボット列が1列目と3列目だと分かった。Col(A) の基底に使う列はどれか。",
+        choices: ["元の A の1列目と3列目", "階段形の1列目と3列目", "元の A の2列目と4列目", "右辺ベクトルだけ"],
+        answerIndex: 0,
+        explanation: "列空間の基底には、元の行列 A のピボット列に対応する列を使います。"
+      },
+      {
+        id: "la-row-equivalent-row-space",
+        sectionId: "fundamental-decompositions",
+        title: "行基本変形と行空間",
+        topic: "行空間",
+        difficulty: "advanced",
+        prompt: "行列 A を行基本変形して階段形 R にした。A と R について正しいものはどれか。",
+        choices: ["行空間は同じ", "列空間は必ず同じ", "零空間は必ず異なる", "階数は必ず変わる"],
+        answerIndex: 0,
+        explanation: "行基本変形は行ベクトルの張る空間を保つので、A と階段形 R の行空間は同じです。"
+      },
+      {
+        id: "la-similar-matrices",
+        sectionId: "fundamental-decompositions",
+        title: "相似な行列",
+        topic: "相似",
+        difficulty: "standard",
+        prompt: "A と B が相似であるとは、ある可逆行列 P によりどの形で結ばれることか。",
+        choices: ["B=P^{-1}AP", "B=P+A", "B=PA", "B=A^T"],
+        answerIndex: 0,
+        explanation: "相似変換は基底変換に対応し、B=P^{-1}AP の形で表されます。"
+      },
+      {
+        id: "la-similar-invariants",
+        sectionId: "fundamental-decompositions",
+        title: "相似で保たれる量",
+        topic: "相似",
+        difficulty: "standard",
+        prompt: "相似な正方行列で必ず一致するものはどれか。",
+        choices: ["固有多項式", "すべての成分", "各列の和", "各行のノルム"],
+        answerIndex: 0,
+        explanation: "相似な行列は同じ線形写像を異なる基底で表したものなので、固有多項式、跡、行列式などが一致します。"
+      },
+      {
+        id: "la-change-basis-linear-map",
+        sectionId: "fundamental-decompositions",
+        title: "線形写像の基底変換",
+        topic: "基底変換",
+        difficulty: "advanced",
+        prompt: "標準基底での行列が A、基底変換行列が P のとき、新しい基底での表現として典型的な形はどれか。",
+        choices: ["P^{-1}AP", "PAP", "A+P", "P^{-1}+A"],
+        answerIndex: 0,
+        explanation: "同じ線形写像を新しい基底で表すと、相似変換 P^{-1}AP が現れます。"
+      },
+      {
+        id: "la-projection-matrix-property",
+        sectionId: "fundamental-decompositions",
+        title: "射影行列の性質",
+        topic: "射影",
+        difficulty: "standard",
+        prompt: "線形射影を表す行列 P が満たす代表的な性質はどれか。",
+        choices: ["P^2=P", "P^2=0", "P^T=0", "det(P)=1 が必ず成り立つ"],
+        answerIndex: 0,
+        explanation: "一度射影したものをもう一度射影しても変わらないため、射影行列は P^2=P を満たします。"
+      },
+      {
+        id: "la-orthogonal-projection-matrix",
+        sectionId: "fundamental-decompositions",
+        title: "直交射影行列",
+        topic: "射影",
+        difficulty: "advanced",
+        prompt: "列が一次独立な行列 A の列空間への直交射影行列として正しいものはどれか。",
+        choices: ["A(A^T A)^{-1}A^T", "A^T A", "AA^T A", "(A^T A)A"],
+        answerIndex: 0,
+        explanation: "Col(A) への直交射影行列は P=A(A^T A)^{-1}A^T です。"
+      },
+      {
+        id: "la-qr-factorization",
+        sectionId: "fundamental-decompositions",
+        title: "QR分解",
+        topic: "行列分解",
+        difficulty: "standard",
+        prompt: "QR分解 A=QR で、通常 Q と R はそれぞれどのような行列か。",
+        choices: ["列が正規直交な行列と上三角行列", "下三角行列と対角行列", "零行列と単位行列", "対称行列と交代行列"],
+        answerIndex: 0,
+        explanation: "QR分解では、Q は正規直交な列を持ち、R は上三角行列です。"
+      },
+      {
+        id: "la-svd-shape",
+        sectionId: "fundamental-decompositions",
+        title: "特異値分解",
+        topic: "SVD",
+        difficulty: "standard",
+        prompt: "特異値分解の標準的な形はどれか。",
+        choices: ["A=UΣV^T", "A=LU", "A=PDP^{-1}", "A=A^T A"],
+        answerIndex: 0,
+        explanation: "特異値分解は A=UΣV^T の形で、U,V は直交行列、Σ は非負対角成分を持つ行列です。"
+      },
+      {
+        id: "la-singular-values",
+        sectionId: "fundamental-decompositions",
+        title: "特異値",
+        topic: "SVD",
+        difficulty: "advanced",
+        prompt: "行列 A の特異値は何から得られるか。",
+        choices: ["A^T A の固有値の非負平方根", "A の成分の総和", "det(A) のみ", "A の対角成分そのもの"],
+        answerIndex: 0,
+        explanation: "特異値は A^T A の固有値の非負平方根として得られます。"
+      },
+      {
+        id: "la-low-rank-approximation",
+        sectionId: "fundamental-decompositions",
+        title: "低ランク近似",
+        topic: "SVD",
+        difficulty: "advanced",
+        prompt: "SVD が低ランク近似に使われる主な理由はどれか。",
+        choices: ["大きい特異値に対応する成分を残すと重要な情報を保ちやすいから", "すべての行列を零行列にするから", "行列式を必ず1にするから", "固有値を消すから"],
+        answerIndex: 0,
+        explanation: "SVD では特異値の大きさで成分の重要度を測り、上位成分だけで良い近似を作れます。"
+      },
+      {
+        id: "la-pseudoinverse-purpose",
+        sectionId: "fundamental-decompositions",
+        title: "擬似逆行列",
+        topic: "擬似逆行列",
+        difficulty: "advanced",
+        prompt: "Moore-Penrose 擬似逆行列が特に役立つ場面はどれか。",
+        choices: ["正方でない行列や階数落ち行列を含む最小二乗問題", "行列の成分をすべて整数にする問題", "行列式だけを計算する問題", "複素数を使わない問題だけ"],
+        answerIndex: 0,
+        explanation: "擬似逆行列は、逆行列が存在しない場合にも最小二乗解や最小ノルム解を表すために使えます。"
+      },
+      {
+        id: "la-condition-number",
+        sectionId: "fundamental-decompositions",
+        title: "条件数",
+        topic: "数値線形代数",
+        difficulty: "advanced",
+        prompt: "行列の条件数が大きいとき、一般に何が起こりやすいか。",
+        choices: ["入力や丸め誤差に対して解が敏感になる", "計算が必ず正確になる", "行列が必ず直交行列になる", "階数が必ず0になる"],
+        answerIndex: 0,
+        explanation: "条件数が大きい問題は悪条件で、小さな誤差が解に大きく影響することがあります。"
+      },
+      {
+        id: "la-sparse-matrix",
+        sectionId: "fundamental-decompositions",
+        title: "疎行列",
+        topic: "数値線形代数",
+        difficulty: "basic",
+        prompt: "疎行列の説明として最も適切なものはどれか。",
+        choices: ["成分の多くが0である行列", "すべての成分が1である行列", "必ず正方行列である行列", "固有値を持たない行列"],
+        answerIndex: 0,
+        explanation: "疎行列は多くの成分が0である行列で、保存や計算を効率化できることがあります。"
+      },
+      {
+        id: "la-markov-stochastic-matrix",
+        sectionId: "fundamental-decompositions",
+        title: "確率行列",
+        topic: "応用",
+        difficulty: "standard",
+        prompt: "列確率行列の特徴として正しいものはどれか。",
+        choices: ["各列の成分和が1で、成分が非負", "各列の成分和が0", "必ず対称行列", "必ず逆行列を持つ"],
+        answerIndex: 0,
+        explanation: "列確率行列は、各列が確率分布を表すため、成分が非負で列和が1です。"
+      },
+      {
+        id: "la-graph-incidence-matrix",
+        sectionId: "fundamental-decompositions",
+        title: "グラフと接続行列",
+        topic: "応用",
+        difficulty: "advanced",
+        prompt: "グラフの接続行列やラプラシアンで線形代数が使われる主な理由はどれか。",
+        choices: ["ネットワーク構造を行列として扱い、階数や固有値で性質を調べられるから", "グラフでは数を使わないから", "すべてのグラフが対角行列だから", "固有値が常に存在しないから"],
+        answerIndex: 0,
+        explanation: "グラフは行列で表現でき、連結性、流れ、拡散などを階数や固有値の問題として調べられます。"
       }
     ]
   },
