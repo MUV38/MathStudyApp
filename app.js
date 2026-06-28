@@ -1421,10 +1421,254 @@ const subjects = [
   {
     id: "calculus",
     name: "微積分",
-    description: "今後追加予定",
-    enabled: false,
-    sections: [],
-    problems: []
+    description: "極限、微分、積分、級数、多変数微積分を大学初年級の流れで学びます。",
+    enabled: true,
+    sections: [
+      {
+        id: "limits-continuity",
+        title: "1. 極限と連続性",
+        description: "数列と関数の極限、連続性、はさみうち、初等関数の基本極限を確認します。"
+      },
+      {
+        id: "differentiation",
+        title: "2. 1変数関数の微分",
+        description: "導関数、積・商・合成関数の微分、接線、増減、テイラー展開を扱います。"
+      },
+      {
+        id: "integration",
+        title: "3. 1変数関数の積分",
+        description: "不定積分、定積分、置換積分、部分積分、面積計算を練習します。"
+      },
+      {
+        id: "sequences-series",
+        title: "4. 数列・級数",
+        description: "収束判定、冪級数、テイラー級数、収束半径の基本を学びます。"
+      },
+      {
+        id: "multivariable-differentiation",
+        title: "5. 多変数関数の微分",
+        description: "偏微分、勾配、全微分、連鎖律、極値判定を扱います。"
+      },
+      {
+        id: "multiple-integrals",
+        title: "6. 重積分とベクトル解析の入口",
+        description: "二重積分、変数変換、ヤコビアン、線積分の基本計算を確認します。"
+      }
+    ],
+    problems: [
+      {
+        id: "cal-limit-polynomial",
+        sectionId: "limits-continuity",
+        title: "多項式関数の極限",
+        topic: "関数の極限",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "lim x->2 (x^2+3x-1) の値はどれか。",
+        choices: ["9", "5", "7", "0"],
+        answerIndex: 0,
+        explanation: "多項式は連続なので x=2 を代入します。2^2+3*2-1=9 です。"
+      },
+      {
+        id: "cal-limit-quotient",
+        sectionId: "limits-continuity",
+        title: "因数分解による極限",
+        topic: "不定形の解消",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "lim x->1 (x^2-1)/(x-1) の値はどれか。",
+        choices: ["2", "1", "0", "存在しない"],
+        answerIndex: 0,
+        explanation: "x^2-1=(x-1)(x+1) と因数分解し、x != 1 で x+1 に簡約できます。極限は 2 です。"
+      },
+      {
+        id: "cal-squeeze-sine",
+        sectionId: "limits-continuity",
+        title: "はさみうちの原理",
+        topic: "はさみうち",
+        difficulty: "standard",
+        prompt: "lim x->0 x sin(1/x) の値はどれか。",
+        choices: ["0", "1", "-1", "存在しない"],
+        answerIndex: 0,
+        explanation: "-|x| <= x sin(1/x) <= |x| なので、両端が 0 に近づくことから極限は 0 です。"
+      },
+      {
+        id: "cal-derivative-power",
+        sectionId: "differentiation",
+        title: "べき関数の微分",
+        topic: "導関数",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "f(x)=x^5 の導関数 f'(x) はどれか。",
+        choices: ["5x^4", "x^4", "5x^5", "x^6/6"],
+        answerIndex: 0,
+        explanation: "べき関数の公式 d/dx x^n = n x^(n-1) より f'(x)=5x^4 です。"
+      },
+      {
+        id: "cal-derivative-chain",
+        sectionId: "differentiation",
+        title: "合成関数の微分",
+        topic: "連鎖律",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "f(x)=sin(x^2) の導関数はどれか。",
+        choices: ["2x cos(x^2)", "cos(2x)", "sin(2x)", "x cos(x^2)"],
+        answerIndex: 0,
+        explanation: "外側 sin u の微分は cos u、内側 u=x^2 の微分は 2x なので f'(x)=2x cos(x^2) です。"
+      },
+      {
+        id: "cal-tangent-line",
+        sectionId: "differentiation",
+        title: "接線の方程式",
+        topic: "接線",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "y=x^2 の x=3 における接線の方程式はどれか。",
+        choices: ["y=6x-9", "y=3x", "y=6x+9", "y=x+6"],
+        answerIndex: 0,
+        explanation: "導関数は 2x なので傾きは 6、接点は (3,9) です。y-9=6(x-3) より y=6x-9 です。"
+      },
+      {
+        id: "cal-integral-power",
+        sectionId: "integration",
+        title: "べき関数の不定積分",
+        topic: "不定積分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "int 3x^2 dx はどれか。",
+        choices: ["x^3+C", "6x+C", "3x^3+C", "x^2+C"],
+        answerIndex: 0,
+        explanation: "x^3 の微分が 3x^2 なので、不定積分は x^3+C です。"
+      },
+      {
+        id: "cal-definite-integral",
+        sectionId: "integration",
+        title: "定積分の基本",
+        topic: "定積分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "int_0^1 2x dx の値はどれか。",
+        choices: ["1", "2", "1/2", "0"],
+        answerIndex: 0,
+        explanation: "原始関数は x^2 です。x=1 と x=0 の値の差は 1-0=1 です。"
+      },
+      {
+        id: "cal-integration-by-parts",
+        sectionId: "integration",
+        title: "部分積分",
+        topic: "部分積分",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "int x e^x dx として正しいものはどれか。",
+        choices: ["(x-1)e^x+C", "(x+1)e^x+C", "x^2 e^x/2+C", "e^x+C"],
+        answerIndex: 0,
+        explanation: "u=x, dv=e^x dx とすると、int x e^x dx = x e^x - int e^x dx = (x-1)e^x+C です。"
+      },
+      {
+        id: "cal-geometric-series",
+        sectionId: "sequences-series",
+        title: "等比級数",
+        topic: "級数の和",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "sum_{n=0}^infty (1/3)^n の和はどれか。",
+        choices: ["3/2", "1/3", "2/3", "発散する"],
+        answerIndex: 0,
+        explanation: "|r|<1 の等比級数の和は 1/(1-r) です。r=1/3 なので 1/(2/3)=3/2 です。"
+      },
+      {
+        id: "cal-p-series",
+        sectionId: "sequences-series",
+        title: "p 級数の収束",
+        topic: "収束判定",
+        difficulty: "standard",
+        prompt: "sum_{n=1}^infty 1/n^p が収束する条件はどれか。",
+        choices: ["p>1", "p>=1", "p<1", "すべての p で収束"],
+        answerIndex: 0,
+        explanation: "p 級数は p>1 のとき収束し、p<=1 のとき発散します。"
+      },
+      {
+        id: "cal-radius-power-series",
+        sectionId: "sequences-series",
+        title: "冪級数の収束半径",
+        topic: "冪級数",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "sum_{n=0}^infty x^n/2^n の収束半径 R はどれか。",
+        choices: ["2", "1/2", "1", "無限大"],
+        answerIndex: 0,
+        explanation: "これは比が x/2 の等比級数です。|x/2|<1、つまり |x|<2 なので収束半径は 2 です。"
+      },
+      {
+        id: "cal-partial-derivative",
+        sectionId: "multivariable-differentiation",
+        title: "偏微分の計算",
+        topic: "偏微分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "f(x,y)=x^2 y+3y の x に関する偏微分 f_x はどれか。",
+        choices: ["2xy", "x^2+3", "2xy+3", "2x+y"],
+        answerIndex: 0,
+        explanation: "y を定数とみなして x で微分します。x^2 y の微分は 2xy、3y の微分は 0 です。"
+      },
+      {
+        id: "cal-gradient",
+        sectionId: "multivariable-differentiation",
+        title: "勾配ベクトル",
+        topic: "勾配",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "f(x,y)=x^2+y^2 の点 (1,2) における勾配はどれか。",
+        choices: ["(2,4)", "(1,2)", "(2,2)", "(4,2)"],
+        answerIndex: 0,
+        explanation: "grad f=(2x,2y) です。点 (1,2) を代入して (2,4) になります。"
+      },
+      {
+        id: "cal-critical-point",
+        sectionId: "multivariable-differentiation",
+        title: "極値判定",
+        topic: "ヘッセ行列",
+        difficulty: "advanced",
+        prompt: "f(x,y)=x^2+y^2 は点 (0,0) でどの性質を持つか。",
+        choices: ["極小", "極大", "鞍点", "判定不能"],
+        answerIndex: 0,
+        explanation: "f(x,y)>=0 で、(0,0) のときだけ 0 です。したがって (0,0) は極小点です。"
+      },
+      {
+        id: "cal-double-integral-rectangle",
+        sectionId: "multiple-integrals",
+        title: "長方形領域の二重積分",
+        topic: "二重積分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "領域 0<=x<=1, 0<=y<=2 で int int 1 dA の値はどれか。",
+        choices: ["2", "1", "3", "4"],
+        answerIndex: 0,
+        explanation: "被積分関数が 1 の二重積分は領域の面積です。長方形の面積は 1*2=2 です。"
+      },
+      {
+        id: "cal-double-integral-simple",
+        sectionId: "multiple-integrals",
+        title: "反復積分",
+        topic: "二重積分",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "int_0^1 int_0^1 (x+y) dy dx の値はどれか。",
+        choices: ["1", "1/2", "2", "3/2"],
+        answerIndex: 0,
+        explanation: "内側を y で積分すると x+1/2 です。さらに 0 から 1 まで x で積分して 1/2+1/2=1 です。"
+      },
+      {
+        id: "cal-jacobian-polar",
+        sectionId: "multiple-integrals",
+        title: "極座標変換のヤコビアン",
+        topic: "変数変換",
+        difficulty: "standard",
+        prompt: "極座標変換 x=r cos(theta), y=r sin(theta) のヤコビアンの絶対値はどれか。",
+        choices: ["r", "r^2", "1/r", "cos(theta)"],
+        answerIndex: 0,
+        explanation: "極座標変換では面積要素が dA=r dr dtheta になります。したがってヤコビアンの絶対値は r です。"
+      }
+    ]
   },
   {
     id: "abstract-algebra",
@@ -1600,6 +1844,11 @@ function formatMathText(text) {
     [/\bCol\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{Col}(${value})\\)`],
     [/\bRow\(([^)]+)\)/g, (_match, value) => `\\(\\operatorname{Row}(${value})\\)`],
     [/\bsqrt\(([^)]+)\)/g, (_match, value) => `\\(\\sqrt{${value}}\\)`],
+    [/\blim\s+([a-z])->([^ ]+)\s+([^。]+)/g, (_match, variable, target, value) => `\\(\\lim_{${variable}\\to ${target}} ${value}\\)`],
+    [/\bint_([^ ]+)\s+([^。]+?)\s+d([a-zA-Z]+)/g, (_match, range, value, variable) => `\\(\\int_{${range}} ${value}\\,d${variable}\\)`],
+    [/\bint\s+([^。]+?)\s+d([a-zA-Z]+)/g, (_match, value, variable) => `\\(\\int ${value}\\,d${variable}\\)`],
+    [/\bsum_\{([^}]+)\}\^([A-Za-z0-9]+)\s+([^。]+)/g, (_match, lower, upper, value) => `\\(\\sum_{${lower}}^{${upper}} ${value}\\)`],
+    [/\bgrad ([A-Za-z][A-Za-z0-9]*)/g, (_match, value) => `\\(\\nabla ${value}\\)`],
     [/\|\|([^|]+)\|\|/g, (_match, value) => `\\(\\lVert ${value} \\rVert\\)`],
     [/([A-Za-zλΣ]+)\^\{?(-?1|T|k|\d+)\}?/g, (_match, base, exp) => `\\(${base}^{${exp}}\\)`],
     [/\(([+-]?\d+(?:\/\d+)?|[a-zA-Z]\d?)(?:,\s*([+-]?\d+(?:\/\d+)?|[a-zA-Z]\d?)){1,5}\)/g, (match) => `\\(${match}\\)`],
