@@ -27,6 +27,11 @@
         </section>
 
         <section class="panel">
+          <h2>セクション</h2>
+          <div id="sectionList" class="section-list"></div>
+        </section>
+
+        <section class="panel">
           <h2>学習モード</h2>
           <div class="mode-tabs" role="tablist" aria-label="学習モード">
             <button class="mode-button active" type="button" data-mode="practice">演習</button>
@@ -41,6 +46,7 @@
           <div>
             <p id="currentSubjectLabel" class="eyebrow">線形代数</p>
             <h2 id="modeTitle">問題演習</h2>
+            <p id="currentSectionLabel" class="section-label">1. ベクトルと一次独立</p>
           </div>
           <div class="filters">
             <label>
@@ -59,6 +65,7 @@
         <div id="practiceView" class="view active">
           <article class="problem-card">
             <div class="problem-meta">
+              <span id="problemSection"></span>
               <span id="problemTopic"></span>
               <span id="problemDifficulty"></span>
             </div>
