@@ -2452,6 +2452,451 @@ const subjects = [
         explanation: "ガロア理論の基本定理は、中間体 F <= E <= K とガロア群の部分群を包含関係を反転して対応させます。"
       }
     ]
+  },
+  {
+    id: "probability-statistics",
+    name: "確率統計学",
+    description: "確率、確率変数、分布、記述統計、推定、検定、回帰と相関",
+    enabled: true,
+    sections: [
+      {
+        id: "probability-basics",
+        title: "1. 確率の基本",
+        description: "標本空間、事象、条件付き確率、独立性、ベイズの定理を確認します。"
+      },
+      {
+        id: "random-variables",
+        title: "2. 確率変数と期待値",
+        description: "離散・連続確率変数、期待値、分散、共分散を扱います。"
+      },
+      {
+        id: "distributions",
+        title: "3. 代表的な確率分布",
+        description: "二項分布、ポアソン分布、正規分布、指数分布、標準化を学びます。"
+      },
+      {
+        id: "descriptive-statistics",
+        title: "4. 記述統計",
+        description: "平均、中央値、分散、標準偏差、四分位範囲、相関係数を確認します。"
+      },
+      {
+        id: "estimation",
+        title: "5. 推定",
+        description: "点推定、不偏性、一致性、標本平均、信頼区間を扱います。"
+      },
+      {
+        id: "hypothesis-testing",
+        title: "6. 仮説検定",
+        description: "帰無仮説、対立仮説、有意水準、p値、第1種・第2種の誤りを学びます。"
+      },
+      {
+        id: "regression-correlation",
+        title: "7. 回帰と相関",
+        description: "散布図、相関係数、単回帰、最小二乗法、決定係数を確認します。"
+      }
+    ],
+    problems: [
+      {
+        id: "ps-sample-space",
+        sectionId: "probability-basics",
+        title: "標本空間",
+        topic: "標本空間",
+        difficulty: "basic",
+        prompt: "1個のサイコロを1回投げる試行の標本空間として正しいものはどれか。",
+        choices: ["{1,2,3,4,5,6}", "{表,裏}", "{0,1}", "{偶数,奇数}"],
+        answerIndex: 0,
+        explanation: "標本空間は起こり得る基本結果をすべて集めた集合です。サイコロでは 1 から 6 までの目が基本結果です。"
+      },
+      {
+        id: "ps-addition-rule-disjoint",
+        sectionId: "probability-basics",
+        title: "排反事象の和",
+        topic: "確率の加法法則",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "A と B が排反で P(A)=0.3, P(B)=0.2 のとき、P(A union B) はどれか。",
+        choices: ["0.5", "0.1", "0.6", "0.06"],
+        answerIndex: 0,
+        explanation: "排反なら同時に起こらないので P(A union B)=P(A)+P(B)=0.3+0.2=0.5 です。"
+      },
+      {
+        id: "ps-conditional-probability",
+        sectionId: "probability-basics",
+        title: "条件付き確率",
+        topic: "条件付き確率",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "P(A cap B)=0.12, P(B)=0.3 のとき、P(A|B) はどれか。",
+        choices: ["0.4", "0.036", "0.18", "2.5"],
+        answerIndex: 0,
+        explanation: "P(A|B)=P(A cap B)/P(B)=0.12/0.3=0.4 です。"
+      },
+      {
+        id: "ps-independence",
+        sectionId: "probability-basics",
+        title: "独立性の判定",
+        topic: "独立性",
+        difficulty: "standard",
+        prompt: "事象 A と B が独立であるための条件として正しいものはどれか。",
+        choices: ["P(A cap B)=P(A)P(B)", "P(A cap B)=0", "P(A)+P(B)=1", "A と B は同じ事象である"],
+        answerIndex: 0,
+        explanation: "独立性は、一方が起きたことが他方の確率を変えないことです。これは P(A cap B)=P(A)P(B) と同値です。"
+      },
+      {
+        id: "ps-bayes-theorem",
+        sectionId: "probability-basics",
+        title: "ベイズの定理",
+        topic: "ベイズの定理",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "P(A)=0.2, P(B|A)=0.9, P(B)=0.3 のとき、P(A|B) はどれか。",
+        choices: ["0.6", "0.18", "0.24", "1.5"],
+        answerIndex: 0,
+        explanation: "ベイズの定理より P(A|B)=P(B|A)P(A)/P(B)=0.9*0.2/0.3=0.6 です。"
+      },
+      {
+        id: "ps-discrete-expectation",
+        sectionId: "random-variables",
+        title: "離散確率変数の期待値",
+        topic: "期待値",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "X が 0,1 をそれぞれ確率 0.4,0.6 で取るとき、E[X] はどれか。",
+        choices: ["0.6", "0.4", "1.0", "0.24"],
+        answerIndex: 0,
+        explanation: "E[X]=0*0.4+1*0.6=0.6 です。"
+      },
+      {
+        id: "ps-variance-definition",
+        sectionId: "random-variables",
+        title: "分散の定義",
+        topic: "分散",
+        difficulty: "basic",
+        prompt: "確率変数 X の分散 Var(X) として正しいものはどれか。",
+        choices: ["E[(X-E[X])^2]", "E[X]^2", "E[X^2]^2", "E[X-E[X]]"],
+        answerIndex: 0,
+        explanation: "分散は平均からのずれの2乗の期待値で、Var(X)=E[(X-E[X])^2] です。"
+      },
+      {
+        id: "ps-variance-shortcut",
+        sectionId: "random-variables",
+        title: "分散の計算公式",
+        topic: "分散",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "E[X]=2, E[X^2]=7 のとき、Var(X) はどれか。",
+        choices: ["3", "5", "9", "11"],
+        answerIndex: 0,
+        explanation: "Var(X)=E[X^2]-E[X]^2=7-2^2=3 です。"
+      },
+      {
+        id: "ps-linearity-expectation",
+        sectionId: "random-variables",
+        title: "期待値の線形性",
+        topic: "期待値",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "E[X]=3 のとき、E[2X+5] はどれか。",
+        choices: ["11", "10", "13", "16"],
+        answerIndex: 0,
+        explanation: "期待値の線形性より E[2X+5]=2E[X]+5=2*3+5=11 です。"
+      },
+      {
+        id: "ps-covariance-zero",
+        sectionId: "random-variables",
+        title: "共分散",
+        topic: "共分散",
+        difficulty: "advanced",
+        prompt: "確率変数 X と Y が独立で、分散が有限であるとき、Cov(X,Y) について正しいものはどれか。",
+        choices: ["0 である", "必ず 1 である", "必ず正である", "定義できない"],
+        answerIndex: 0,
+        explanation: "独立なら E[XY]=E[X]E[Y] なので Cov(X,Y)=E[XY]-E[X]E[Y]=0 です。"
+      },
+      {
+        id: "ps-binomial-mean",
+        sectionId: "distributions",
+        title: "二項分布の平均",
+        topic: "二項分布",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "X ~ Bin(10, 0.3) のとき、E[X] はどれか。",
+        choices: ["3", "0.3", "7", "2.1"],
+        answerIndex: 0,
+        explanation: "二項分布 Bin(n,p) の平均は np です。10*0.3=3 です。"
+      },
+      {
+        id: "ps-binomial-probability",
+        sectionId: "distributions",
+        title: "二項分布の確率",
+        topic: "二項分布",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "X ~ Bin(3, 1/2) のとき、P(X=2) はどれか。",
+        choices: ["3/8", "1/8", "1/2", "2/3"],
+        answerIndex: 0,
+        explanation: "P(X=2)=C(3,2)(1/2)^2(1/2)^1=3/8 です。"
+      },
+      {
+        id: "ps-poisson-variance",
+        sectionId: "distributions",
+        title: "ポアソン分布の分散",
+        topic: "ポアソン分布",
+        difficulty: "basic",
+        prompt: "X ~ Poisson(lambda) の分散として正しいものはどれか。",
+        choices: ["lambda", "lambda^2", "sqrt(lambda)", "1/lambda"],
+        answerIndex: 0,
+        explanation: "ポアソン分布では平均も分散も lambda です。"
+      },
+      {
+        id: "ps-standard-normal",
+        sectionId: "distributions",
+        title: "標準正規分布",
+        topic: "正規分布",
+        difficulty: "standard",
+        prompt: "標準正規分布 N(0,1) の特徴として正しいものはどれか。",
+        choices: ["平均 0、分散 1", "平均 1、分散 0", "平均 0、分散 0", "平均 1、分散 1"],
+        answerIndex: 0,
+        explanation: "標準正規分布は平均 0、分散 1 の正規分布です。"
+      },
+      {
+        id: "ps-standardization",
+        sectionId: "distributions",
+        title: "正規分布の標準化",
+        topic: "正規分布",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "X ~ N(10, 4) のとき、X=14 に対応する標準化値 z はどれか。ただし第2引数は分散とする。",
+        choices: ["2", "1", "4", "8"],
+        answerIndex: 0,
+        explanation: "標準偏差は sqrt(4)=2 です。z=(14-10)/2=2 です。"
+      },
+      {
+        id: "ps-sample-mean",
+        sectionId: "descriptive-statistics",
+        title: "標本平均",
+        topic: "平均",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "データ 2, 4, 6, 8 の標本平均はどれか。",
+        choices: ["5", "4", "6", "20"],
+        answerIndex: 0,
+        explanation: "標本平均は合計を個数で割ります。(2+4+6+8)/4=5 です。"
+      },
+      {
+        id: "ps-median",
+        sectionId: "descriptive-statistics",
+        title: "中央値",
+        topic: "代表値",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "データ 1, 3, 9, 10, 12 の中央値はどれか。",
+        choices: ["9", "7", "3", "10"],
+        answerIndex: 0,
+        explanation: "データを小さい順に並べたとき中央にある値が中央値です。5個なので3番目の 9 です。"
+      },
+      {
+        id: "ps-sample-variance",
+        sectionId: "descriptive-statistics",
+        title: "標本分散",
+        topic: "分散",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "データ 1, 3, 5 の、n で割る標本分散はどれか。",
+        choices: ["8/3", "4", "2", "3"],
+        answerIndex: 0,
+        explanation: "平均は 3 です。偏差平方和は 4+0+4=8 なので、n=3 で割ると 8/3 です。"
+      },
+      {
+        id: "ps-iqr",
+        sectionId: "descriptive-statistics",
+        title: "四分位範囲",
+        topic: "四分位範囲",
+        difficulty: "standard",
+        prompt: "四分位範囲 IQR の説明として正しいものはどれか。",
+        choices: ["第3四分位数から第1四分位数を引いた値", "最大値から最小値を引いた値", "平均から中央値を引いた値", "分散の平方根"],
+        answerIndex: 0,
+        explanation: "IQR は Q3-Q1 で、中央50%のデータの散らばりを表します。"
+      },
+      {
+        id: "ps-correlation-range",
+        sectionId: "descriptive-statistics",
+        title: "相関係数の範囲",
+        topic: "相関係数",
+        difficulty: "advanced",
+        prompt: "ピアソンの相関係数 r が取り得る範囲として正しいものはどれか。",
+        choices: ["-1 <= r <= 1", "0 <= r <= 1", "-infty < r < infty", "r >= 1"],
+        answerIndex: 0,
+        explanation: "相関係数は線形関係の向きと強さを表し、常に -1 以上 1 以下です。"
+      },
+      {
+        id: "ps-unbiased-estimator",
+        sectionId: "estimation",
+        title: "不偏推定量",
+        topic: "点推定",
+        difficulty: "basic",
+        prompt: "推定量 T が母数 theta の不偏推定量であるとは、どの条件を満たすことか。",
+        choices: ["E[T]=theta", "T=0", "Var(T)=theta", "P(T=theta)=1 が常に成り立つ"],
+        answerIndex: 0,
+        explanation: "不偏性は、推定量の期待値が推定したい母数に等しいことです。"
+      },
+      {
+        id: "ps-sample-mean-unbiased",
+        sectionId: "estimation",
+        title: "標本平均の不偏性",
+        topic: "点推定",
+        difficulty: "standard",
+        prompt: "独立同分布な標本 X1,...,Xn の母平均を mu とするとき、標本平均について正しいものはどれか。",
+        choices: ["E[bar X]=mu", "E[bar X]=n mu", "E[bar X]=0", "bar X は常に mu と等しい"],
+        answerIndex: 0,
+        explanation: "期待値の線形性より E[bar X]=(E[X1]+...+E[Xn])/n=mu です。"
+      },
+      {
+        id: "ps-standard-error",
+        sectionId: "estimation",
+        title: "標準誤差",
+        topic: "標本平均",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "母標準偏差 sigma=12、標本サイズ n=36 のとき、標本平均の標準誤差はどれか。",
+        choices: ["2", "6", "12", "72"],
+        answerIndex: 0,
+        explanation: "標本平均の標準誤差は sigma/sqrt(n)=12/sqrt(36)=12/6=2 です。"
+      },
+      {
+        id: "ps-confidence-interval-mean",
+        sectionId: "estimation",
+        title: "母平均の信頼区間",
+        topic: "信頼区間",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "母標準偏差が既知で、95%信頼区間が bar X ± 1.96 sigma/sqrt(n) と書けるとする。bar X=50, sigma/sqrt(n)=2 の区間はどれか。",
+        choices: ["[46.08, 53.92]", "[48.04, 51.96]", "[50, 53.92]", "[45, 55]"],
+        answerIndex: 0,
+        explanation: "誤差幅は 1.96*2=3.92 です。したがって 50±3.92、つまり [46.08,53.92] です。"
+      },
+      {
+        id: "ps-consistency",
+        sectionId: "estimation",
+        title: "一致性",
+        topic: "推定量の性質",
+        difficulty: "advanced",
+        prompt: "推定量 T_n が母数 theta に一致するとは、標本サイズ n が大きくなると何が起こることか。",
+        choices: ["T_n が theta に確率収束する", "T_n が必ず 0 になる", "T_n の分散が必ず theta になる", "T_n が正規分布でなくなる"],
+        answerIndex: 0,
+        explanation: "一致性は、n を大きくしたとき推定量が真の母数へ確率収束する性質です。"
+      },
+      {
+        id: "ps-null-hypothesis",
+        sectionId: "hypothesis-testing",
+        title: "帰無仮説",
+        topic: "仮説検定",
+        difficulty: "basic",
+        prompt: "仮説検定で、通常まず棄却できるかを調べる基準となる仮説はどれか。",
+        choices: ["帰無仮説", "対立仮説", "標本仮説", "信頼仮説"],
+        answerIndex: 0,
+        explanation: "検定では帰無仮説 H0 を置き、データが H0 のもとでどれほど起こりにくいかを調べます。"
+      },
+      {
+        id: "ps-significance-level",
+        sectionId: "hypothesis-testing",
+        title: "有意水準",
+        topic: "有意水準",
+        difficulty: "basic",
+        prompt: "有意水準 alpha の意味として正しいものはどれか。",
+        choices: ["帰無仮説が正しいのに棄却する確率の上限", "帰無仮説が誤りなのに採択する確率", "標本平均の値", "母分散の推定値"],
+        answerIndex: 0,
+        explanation: "有意水準は第1種の誤り、つまり正しい帰無仮説を棄却する確率を制御する値です。"
+      },
+      {
+        id: "ps-p-value-decision",
+        sectionId: "hypothesis-testing",
+        title: "p値による判断",
+        topic: "p値",
+        difficulty: "standard",
+        prompt: "有意水準 5% の検定で p値が 0.03 のとき、通常の判断として正しいものはどれか。",
+        choices: ["帰無仮説を棄却する", "帰無仮説を必ず採択する", "検定できない", "有意水準を 0.03 に変更する"],
+        answerIndex: 0,
+        explanation: "p値が有意水準 0.05 より小さいので、帰無仮説を棄却します。"
+      },
+      {
+        id: "ps-type-two-error",
+        sectionId: "hypothesis-testing",
+        title: "第2種の誤り",
+        topic: "検定の誤り",
+        difficulty: "standard",
+        prompt: "第2種の誤りとして正しい説明はどれか。",
+        choices: ["帰無仮説が偽なのに棄却しないこと", "帰無仮説が真なのに棄却すること", "p値を計算すること", "標本サイズを増やすこと"],
+        answerIndex: 0,
+        explanation: "第2種の誤りは、本当は帰無仮説が誤っているのに、それを棄却できない誤りです。"
+      },
+      {
+        id: "ps-two-sided-test",
+        sectionId: "hypothesis-testing",
+        title: "両側検定",
+        topic: "検定の種類",
+        difficulty: "advanced",
+        prompt: "母平均 mu について H1: mu != mu0 を調べる検定は何と呼ばれるか。",
+        choices: ["両側検定", "右片側検定", "左片側検定", "適合度検定"],
+        answerIndex: 0,
+        explanation: "対立仮説が mu0 より大きい場合と小さい場合の両方を含むので、両側検定です。"
+      },
+      {
+        id: "ps-scatter-plot",
+        sectionId: "regression-correlation",
+        title: "散布図",
+        topic: "データ可視化",
+        difficulty: "basic",
+        prompt: "2つの量的変数の関係を点の集まりとして見る図はどれか。",
+        choices: ["散布図", "円グラフ", "箱ひげ図", "ヒストグラム"],
+        answerIndex: 0,
+        explanation: "散布図は、各観測値を平面上の点として描き、2変数の関係を確認する図です。"
+      },
+      {
+        id: "ps-positive-correlation",
+        sectionId: "regression-correlation",
+        title: "正の相関",
+        topic: "相関",
+        difficulty: "basic",
+        prompt: "相関係数 r=0.8 の解釈として最も適切なものはどれか。",
+        choices: ["強い正の線形関係がある", "強い負の線形関係がある", "線形関係がまったくない", "因果関係が証明された"],
+        answerIndex: 0,
+        explanation: "r が 1 に近い正の値なので、強い正の線形関係を示します。ただし相関だけで因果関係は示せません。"
+      },
+      {
+        id: "ps-least-squares",
+        sectionId: "regression-correlation",
+        title: "最小二乗法",
+        topic: "回帰",
+        difficulty: "standard",
+        prompt: "単回帰で最小二乗法が最小にする量はどれか。",
+        choices: ["残差平方和", "説明変数の合計", "目的変数の平均", "相関係数"],
+        answerIndex: 0,
+        explanation: "最小二乗法は、観測値と回帰直線の差である残差の2乗和を最小にします。"
+      },
+      {
+        id: "ps-regression-prediction",
+        sectionId: "regression-correlation",
+        title: "回帰直線による予測",
+        topic: "回帰",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "回帰直線 y=2+3x で x=4 のときの予測値はどれか。",
+        choices: ["14", "9", "12", "24"],
+        answerIndex: 0,
+        explanation: "x=4 を代入すると y=2+3*4=14 です。"
+      },
+      {
+        id: "ps-r-squared",
+        sectionId: "regression-correlation",
+        title: "決定係数",
+        topic: "回帰",
+        difficulty: "advanced",
+        prompt: "単回帰で決定係数 R^2 が表すものとして最も適切なものはどれか。",
+        choices: ["目的変数の変動のうち回帰で説明される割合", "回帰係数そのもの", "標本サイズ", "残差の平均"],
+        answerIndex: 0,
+        explanation: "R^2 は、目的変数の全変動のうちモデルで説明できる割合を表します。"
+      }
+    ]
   }
 ];
 
