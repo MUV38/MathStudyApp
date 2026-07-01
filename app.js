@@ -2015,10 +2015,443 @@ const subjects = [
   {
     id: "abstract-algebra",
     name: "抽象代数",
-    description: "今後追加予定",
-    enabled: false,
-    sections: [],
-    problems: []
+    description: "群、環、体、準同型、商構造、ガロア理論の入口を学びます。",
+    enabled: true,
+    sections: [
+      {
+        id: "groups",
+        title: "1. 群と部分群",
+        description: "群の公理、部分群、巡回群、位数、剰余類を確認します。"
+      },
+      {
+        id: "homomorphisms",
+        title: "2. 群準同型と商群",
+        description: "準同型、核、像、正規部分群、商群、同型定理を扱います。"
+      },
+      {
+        id: "rings",
+        title: "3. 環とイデアル",
+        description: "環の定義、単元、零因子、部分環、イデアル、剰余環を学びます。"
+      },
+      {
+        id: "polynomials-fields",
+        title: "4. 多項式環と体",
+        description: "ユークリッド整域、既約多項式、体、有限体、拡大体の基本を扱います。"
+      },
+      {
+        id: "modules-actions",
+        title: "5. 加群と群作用",
+        description: "加群、線形代数との対応、群作用、軌道、固定部分群を確認します。"
+      },
+      {
+        id: "galois-intro",
+        title: "6. ガロア理論の入口",
+        description: "体拡大、自己同型、分解体、ガロア群、基本定理の考え方を学びます。"
+      }
+    ],
+    problems: [
+      {
+        id: "aa-group-axioms",
+        sectionId: "groups",
+        title: "群の公理",
+        topic: "群",
+        difficulty: "basic",
+        prompt: "集合 G と演算 * が群であるために必要な条件の組として正しいものはどれか。",
+        choices: ["結合法則、単位元、逆元、閉性", "交換法則、分配法則、零元、順序", "極限、連続性、微分可能性", "基底、次元、内積"],
+        answerIndex: 0,
+        explanation: "群では演算について閉じており、結合法則、単位元の存在、各元の逆元の存在が必要です。交換法則は一般には不要です。"
+      },
+      {
+        id: "aa-integer-additive-group",
+        sectionId: "groups",
+        title: "整数の加法群",
+        topic: "群",
+        difficulty: "basic",
+        prompt: "整数全体 Z はどの演算について群になるか。",
+        choices: ["加法", "乗法", "除法", "最大値を取る演算"],
+        answerIndex: 0,
+        explanation: "Z は加法について閉じており、単位元は 0、a の逆元は -a です。乗法では 2 の逆元が整数にありません。"
+      },
+      {
+        id: "aa-subgroup-test",
+        sectionId: "groups",
+        title: "部分群判定",
+        topic: "部分群",
+        difficulty: "standard",
+        prompt: "群 G の空でない部分集合 H が部分群であることを示す十分な判定として正しいものはどれか。",
+        choices: ["任意の a,b in H について ab^{-1} in H", "任意の a,b in H について a+b in H", "H が有限集合である", "H が G と同じ濃度を持つ"],
+        answerIndex: 0,
+        explanation: "部分群判定法では、空でない H が ab^{-1} で閉じていれば、単位元、逆元、積について閉じていることが従います。"
+      },
+      {
+        id: "aa-cyclic-group-order",
+        sectionId: "groups",
+        title: "巡回群の元の位数",
+        topic: "巡回群",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "加法群 Z/12Z で 8 の位数はどれか。",
+        choices: ["3", "4", "8", "12"],
+        answerIndex: 0,
+        explanation: "加法群で 8 の位数は 12/gcd(12,8)=12/4=3 です。実際に 3*8=24 は 12 で 0 になります。"
+      },
+      {
+        id: "aa-lagrange-theorem",
+        sectionId: "groups",
+        title: "ラグランジュの定理",
+        topic: "部分群",
+        difficulty: "standard",
+        prompt: "有限群 G の部分群 H について、ラグランジュの定理が述べることはどれか。",
+        choices: ["|H| は |G| を割り切る", "|G| は必ず素数である", "H は必ず正規部分群である", "G は必ず可換群である"],
+        answerIndex: 0,
+        explanation: "G は H の左剰余類に分割され、各剰余類の大きさは |H| と等しいため、|G|=[G:H]|H| です。"
+      },
+      {
+        id: "aa-permutation-sign",
+        sectionId: "groups",
+        title: "置換の符号",
+        topic: "置換群",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "S3 の置換 (123) の符号はどれか。",
+        choices: ["+1", "-1", "0", "3"],
+        answerIndex: 0,
+        explanation: "3サイクル (123) は互換の積 (13)(12) のように 2 個の互換で表せます。偶数個なので符号は +1 です。"
+      },
+      {
+        id: "aa-homomorphism-definition",
+        sectionId: "homomorphisms",
+        title: "群準同型の定義",
+        topic: "準同型",
+        difficulty: "basic",
+        prompt: "写像 f:G -> H が群準同型である条件として正しいものはどれか。",
+        choices: ["f(ab)=f(a)f(b)", "f(a+b)=f(a)+f(b) だけを満たす", "f は必ず全単射である", "f(a)=a^2 である"],
+        answerIndex: 0,
+        explanation: "群準同型は群演算を保つ写像です。加法記法なら f(a+b)=f(a)+f(b)、乗法記法なら f(ab)=f(a)f(b) と書きます。"
+      },
+      {
+        id: "aa-kernel-normal",
+        sectionId: "homomorphisms",
+        title: "核の性質",
+        topic: "核",
+        difficulty: "standard",
+        prompt: "群準同型 f:G -> H の核 ker(f) について正しいものはどれか。",
+        choices: ["G の正規部分群である", "H の部分群であるが G には含まれない", "必ず G 全体である", "必ず空集合である"],
+        answerIndex: 0,
+        explanation: "核は H の単位元に写る G の元全体で、G の正規部分群になります。"
+      },
+      {
+        id: "aa-injective-kernel",
+        sectionId: "homomorphisms",
+        title: "単射と核",
+        topic: "準同型",
+        difficulty: "standard",
+        prompt: "群準同型 f:G -> H が単射であることと同値な条件はどれか。",
+        choices: ["ker(f)={e}", "Im(f)={e}", "ker(f)=G", "H が可換群である"],
+        answerIndex: 0,
+        explanation: "群準同型では、単射性は核が単位元だけからなることと同値です。線形写像の核による単射判定と同じ形です。"
+      },
+      {
+        id: "aa-quotient-group",
+        sectionId: "homomorphisms",
+        title: "商群が定義できる条件",
+        topic: "商群",
+        difficulty: "standard",
+        prompt: "部分群 N による商 G/N が群になるための標準的な条件はどれか。",
+        choices: ["N が G の正規部分群である", "N が空集合である", "G が無限群である", "N の元がすべて位数 2 である"],
+        answerIndex: 0,
+        explanation: "剰余類の積 (aN)(bN)=abN が代表元の取り方によらず定まるには、N が正規部分群であることが必要です。"
+      },
+      {
+        id: "aa-first-isomorphism-theorem",
+        sectionId: "homomorphisms",
+        title: "第一同型定理",
+        topic: "同型定理",
+        difficulty: "advanced",
+        prompt: "群準同型 f:G -> H について、第一同型定理の結論として正しいものはどれか。",
+        choices: ["G/ker(f) は Im(f) と同型", "G は H と必ず同型", "ker(f) は Im(f) と同型", "G/Im(f) は ker(f) と同型"],
+        answerIndex: 0,
+        explanation: "第一同型定理は、準同型の核で割った商群 G/ker(f) が像 Im(f) と自然に同型になることを述べます。"
+      },
+      {
+        id: "aa-sign-homomorphism-kernel",
+        sectionId: "homomorphisms",
+        title: "符号準同型の核",
+        topic: "準同型",
+        difficulty: "advanced",
+        prompt: "符号準同型 sgn:S_n -> {1,-1} の核はどれか。",
+        choices: ["交代群 A_n", "対称群 S_n 全体", "恒等置換だけ", "すべての互換"],
+        answerIndex: 0,
+        explanation: "sgn の核は符号 +1 の置換全体です。これは偶置換全体からなる交代群 A_n です。"
+      },
+      {
+        id: "aa-ring-definition",
+        sectionId: "rings",
+        title: "環の定義",
+        topic: "環",
+        difficulty: "basic",
+        prompt: "環で要求される代表的な構造として正しいものはどれか。",
+        choices: ["加法が可換群で、乗法が結合的で、分配法則を満たす", "乗法だけで群になる", "順序と距離を持つ", "すべての元が微分可能である"],
+        answerIndex: 0,
+        explanation: "環は加法と乗法を持ち、加法について可換群、乗法について結合法則、加法と乗法を結ぶ分配法則を満たします。"
+      },
+      {
+        id: "aa-unit-integers",
+        sectionId: "rings",
+        title: "整数環の単元",
+        topic: "単元",
+        difficulty: "basic",
+        prompt: "整数環 Z の単元はどれか。",
+        choices: ["1 と -1", "すべての非零整数", "素数全体", "0 だけ"],
+        answerIndex: 0,
+        explanation: "単元は乗法逆元を同じ環の中に持つ元です。Z では 1 と -1 だけが整数の逆元を持ちます。"
+      },
+      {
+        id: "aa-zero-divisor-mod6",
+        sectionId: "rings",
+        title: "零因子",
+        topic: "剰余環",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "環 Z/6Z で 2 は零因子か。",
+        choices: ["零因子である", "単元である", "0 と等しい", "体の元である"],
+        answerIndex: 0,
+        explanation: "2*3=6 は Z/6Z で 0 です。2 も 3 も 0 ではないので、2 は零因子です。"
+      },
+      {
+        id: "aa-ideal-definition",
+        sectionId: "rings",
+        title: "イデアルの条件",
+        topic: "イデアル",
+        difficulty: "standard",
+        prompt: "可換環 R の部分集合 I がイデアルであるための条件として正しいものはどれか。",
+        choices: ["I は加法部分群で、任意の r in R, a in I について ra in I", "I は乗法について群である", "I は必ず体である", "I は有限集合である"],
+        answerIndex: 0,
+        explanation: "イデアルは加法で閉じ、環の任意の元を掛けても中にとどまる部分集合です。商環 R/I を作る土台になります。"
+      },
+      {
+        id: "aa-quotient-ring-mod",
+        sectionId: "rings",
+        title: "剰余環の計算",
+        topic: "剰余環",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "Z/7Z で 5+6 の値はどれか。",
+        choices: ["4", "11", "1", "0"],
+        answerIndex: 0,
+        explanation: "5+6=11 で、11 を 7 で割った余りは 4 です。したがって Z/7Z では 5+6=4 です。"
+      },
+      {
+        id: "aa-prime-maximal-ideal",
+        sectionId: "rings",
+        title: "極大イデアル",
+        topic: "イデアル",
+        difficulty: "advanced",
+        prompt: "可換環 R のイデアル M が極大であることと対応する商環の性質はどれか。",
+        choices: ["R/M が体である", "R/M が零環でない限り必ず無限環である", "R/M が群でない", "R/M が順序体である"],
+        answerIndex: 0,
+        explanation: "単位元を持つ可換環では、M が極大イデアルであることと商環 R/M が体であることは同値です。"
+      },
+      {
+        id: "aa-polynomial-division",
+        sectionId: "polynomials-fields",
+        title: "多項式の割り算",
+        topic: "多項式環",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "体 F 上の多項式環 F[x] で x^2-1 を x-1 で割った余りはどれか。",
+        choices: ["0", "1", "x", "-1"],
+        answerIndex: 0,
+        explanation: "x^2-1=(x-1)(x+1) と因数分解できます。したがって x-1 で割った余りは 0 です。"
+      },
+      {
+        id: "aa-field-definition",
+        sectionId: "polynomials-fields",
+        title: "体の定義",
+        topic: "体",
+        difficulty: "basic",
+        prompt: "体の性質として正しいものはどれか。",
+        choices: ["0 でないすべての元が乗法逆元を持つ可換環", "すべての元が零因子である環", "加法だけを持つ群", "順序が必ず定まる集合"],
+        answerIndex: 0,
+        explanation: "体は 0 でない元がすべて乗法逆元を持つ可換環です。Q, R, Z/pZ などが基本例です。"
+      },
+      {
+        id: "aa-finite-field-prime",
+        sectionId: "polynomials-fields",
+        title: "素数位数の有限体",
+        topic: "有限体",
+        difficulty: "standard",
+        prompt: "Z/nZ が体になるための n の条件はどれか。",
+        choices: ["n が素数である", "n が偶数である", "n が平方数である", "n が 1 より大きければ常に体である"],
+        answerIndex: 0,
+        explanation: "Z/nZ が体であることは、n が素数であることと同値です。合成数なら非自明な零因子が生じます。"
+      },
+      {
+        id: "aa-irreducible-quadratic-r",
+        sectionId: "polynomials-fields",
+        title: "既約多項式",
+        topic: "既約性",
+        difficulty: "standard",
+        prompt: "R[x] において x^2+1 について正しいものはどれか。",
+        choices: ["既約である", "(x+1)(x-1) に分解できる", "一次多項式である", "零多項式である"],
+        answerIndex: 0,
+        explanation: "実数係数では x^2+1 は実根を持たない 2 次多項式なので、一次式の積に分解できず既約です。"
+      },
+      {
+        id: "aa-extension-degree",
+        sectionId: "polynomials-fields",
+        title: "体拡大の次数",
+        topic: "体拡大",
+        difficulty: "advanced",
+        prompt: "Q(sqrt(2)) を Q 上のベクトル空間と見るとき、自然な基底はどれか。",
+        choices: ["{1, sqrt(2)}", "{sqrt(2)}", "{1,2,4}", "{0,1}"],
+        answerIndex: 0,
+        explanation: "Q(sqrt(2)) の任意の元は a+b sqrt(2) と一意に表せます。したがって Q 上の基底は {1, sqrt(2)} です。"
+      },
+      {
+        id: "aa-euclidean-domain",
+        sectionId: "polynomials-fields",
+        title: "ユークリッド整域",
+        topic: "整域",
+        difficulty: "advanced",
+        prompt: "体 F 上の多項式環 F[x] について正しいものはどれか。",
+        choices: ["次数を使って割り算ができるユークリッド整域である", "必ず体である", "すべての多項式が単元である", "加法について閉じていない"],
+        answerIndex: 0,
+        explanation: "F[x] では次数を測度として割り算の定理が成り立つため、ユークリッド整域です。ただし x などは逆元を持たないので体ではありません。"
+      },
+      {
+        id: "aa-module-definition",
+        sectionId: "modules-actions",
+        title: "加群の定義",
+        topic: "加群",
+        difficulty: "basic",
+        prompt: "環 R 上の加群を、線形代数の言葉に近い形で説明するとどれか。",
+        choices: ["体の代わりに環のスカラーを許したベクトル空間の一般化", "群の部分集合だけを集めたもの", "必ず内積を持つ空間", "有限集合に順序を入れたもの"],
+        answerIndex: 0,
+        explanation: "加群はスカラーが体ではなく一般の環である点を除けば、加法とスカラー倍を持つベクトル空間の一般化です。"
+      },
+      {
+        id: "aa-z-module",
+        sectionId: "modules-actions",
+        title: "Z 加群",
+        topic: "加群",
+        difficulty: "standard",
+        prompt: "Z 加群と本質的に同じ構造はどれか。",
+        choices: ["アーベル群", "任意の群", "体", "順序集合"],
+        answerIndex: 0,
+        explanation: "アーベル群 A では整数 n によるスカラー倍を n 回の加法で定められます。逆に Z 加群の加法は可換群になります。"
+      },
+      {
+        id: "aa-group-action-definition",
+        sectionId: "modules-actions",
+        title: "群作用の定義",
+        topic: "群作用",
+        difficulty: "basic",
+        prompt: "群 G が集合 X に作用するとは、各 g in G が X の何として振る舞うことか。",
+        choices: ["X から X への全単射", "X の部分集合", "X 上の実数値関数", "X の順序関係"],
+        answerIndex: 0,
+        explanation: "群作用では各群元 g が X の変換として働きます。単位元は恒等変換、積 gh は変換の合成に対応します。"
+      },
+      {
+        id: "aa-orbit-stabilizer",
+        sectionId: "modules-actions",
+        title: "軌道安定化群定理",
+        topic: "群作用",
+        difficulty: "standard",
+        prompt: "有限群 G が X に作用し x in X とする。軌道安定化群定理の式はどれか。",
+        choices: ["|G|=|Orb(x)| |Stab(x)|", "|G|=|Orb(x)|+|Stab(x)|", "|Orb(x)|=|Stab(x)|", "|G|=|X|^2"],
+        answerIndex: 0,
+        explanation: "G から軌道 Orb(x) への写像 g -> gx の各ファイバーの大きさが |Stab(x)| なので、|G|=|Orb(x)||Stab(x)| です。"
+      },
+      {
+        id: "aa-burnside-lemma",
+        sectionId: "modules-actions",
+        title: "バーンサイドの補題",
+        topic: "群作用",
+        difficulty: "advanced",
+        prompt: "有限群 G が有限集合 X に作用するとき、軌道数を数える公式として正しいものはどれか。",
+        choices: ["各 g の固定点数の平均", "各 g の位数の積", "X の元数から |G| を引いた値", "安定化群の共通部分の元数"],
+        answerIndex: 0,
+        explanation: "バーンサイドの補題は、軌道数が (1/|G|) sum_{g in G} |Fix(g)| で与えられることを述べます。"
+      },
+      {
+        id: "aa-linear-map-as-module-hom",
+        sectionId: "modules-actions",
+        title: "線形写像との対応",
+        topic: "加群準同型",
+        difficulty: "standard",
+        prompt: "体 F 上のベクトル空間を F 加群と見たとき、F 加群準同型に対応するものはどれか。",
+        choices: ["F 線形写像", "任意の写像", "距離を保つ写像だけ", "全単射だけ"],
+        answerIndex: 0,
+        explanation: "F 加群準同型は加法と F のスカラー倍を保つ写像なので、通常の F 線形写像そのものです。"
+      },
+      {
+        id: "aa-field-extension",
+        sectionId: "galois-intro",
+        title: "体拡大",
+        topic: "体拡大",
+        difficulty: "basic",
+        prompt: "K が F の体拡大であるとは、どのような関係か。",
+        choices: ["F が K の部分体である", "K が F のイデアルである", "F と K が互いに素である", "K が F の商群である"],
+        answerIndex: 0,
+        explanation: "体拡大 K/F とは、F が K の部分体として含まれている状況です。このとき K は F 上のベクトル空間にもなります。"
+      },
+      {
+        id: "aa-minimal-polynomial",
+        sectionId: "galois-intro",
+        title: "最小多項式",
+        topic: "代数拡大",
+        difficulty: "standard",
+        prompt: "sqrt(2) の Q 上の最小多項式はどれか。",
+        choices: ["x^2-2", "x-2", "x^2+2", "x^2-4"],
+        answerIndex: 0,
+        explanation: "sqrt(2) は x^2-2 の根です。この多項式は Q 上既約なので、sqrt(2) の最小多項式です。"
+      },
+      {
+        id: "aa-splitting-field",
+        sectionId: "galois-intro",
+        title: "分解体",
+        topic: "分解体",
+        difficulty: "standard",
+        prompt: "体 F 上の多項式 f の分解体とはどれか。",
+        choices: ["f が一次式の積に分解し、その根をすべて含む最小の体拡大", "f の係数をすべて 0 にする体", "f の次数を下げる商群", "f の導関数だけを含む集合"],
+        answerIndex: 0,
+        explanation: "分解体は、多項式が完全に一次因子へ分解するために必要な根をすべて加えた最小の体拡大です。"
+      },
+      {
+        id: "aa-galois-group-basic",
+        sectionId: "galois-intro",
+        title: "ガロア群",
+        topic: "ガロア群",
+        difficulty: "standard",
+        prompt: "体拡大 K/F のガロア群 Gal(K/F) の元は何か。",
+        choices: ["F の各元を固定する K の体自己同型", "K の任意の部分集合", "F から K への任意の写像", "K のイデアル"],
+        answerIndex: 0,
+        explanation: "Gal(K/F) は、F の元を動かさない K の体自己同型全体です。合成を演算として群になります。"
+      },
+      {
+        id: "aa-conjugates-sqrt2",
+        sectionId: "galois-intro",
+        title: "共役元",
+        topic: "体自己同型",
+        difficulty: "advanced",
+        prompt: "Q(sqrt(2))/Q の Q 自己同型で sqrt(2) が写り得る先はどれか。",
+        choices: ["sqrt(2) または -sqrt(2)", "2 のみ", "0 のみ", "任意の有理数"],
+        answerIndex: 0,
+        explanation: "自己同型は最小多項式 x^2-2 の根を根へ写します。したがって sqrt(2) の行き先は sqrt(2) または -sqrt(2) です。"
+      },
+      {
+        id: "aa-fundamental-theorem-galois",
+        sectionId: "galois-intro",
+        title: "ガロア対応",
+        topic: "基本定理",
+        difficulty: "advanced",
+        prompt: "有限ガロア拡大 K/F の基本定理が対応させるものはどれか。",
+        choices: ["中間体と Gal(K/F) の部分群", "イデアルと素数", "ベクトルと行列", "極限と導関数"],
+        answerIndex: 0,
+        explanation: "ガロア理論の基本定理は、中間体 F <= E <= K とガロア群の部分群を包含関係を反転して対応させます。"
+      }
+    ]
   }
 ];
 
