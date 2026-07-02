@@ -2015,38 +2015,38 @@ const subjects = [
   {
     id: "abstract-algebra",
     name: "抽象代数",
-    description: "群、環、体、準同型、商構造、ガロア理論の入口を学びます。",
+    description: "群、環、体、加群、群作用、商構造、ガロア理論まで抽象代数の標準範囲を学びます。",
     enabled: true,
     sections: [
       {
         id: "groups",
         title: "1. 群と部分群",
-        description: "群の公理、部分群、巡回群、位数、剰余類を確認します。"
+        description: "群の公理、部分群、巡回群、位数、剰余類、共役類、Sylow 定理を確認します。"
       },
       {
         id: "homomorphisms",
         title: "2. 群準同型と商群",
-        description: "準同型、核、像、正規部分群、商群、同型定理を扱います。"
+        description: "準同型、核、像、正規部分群、商群、同型定理、自己同型、単純群を扱います。"
       },
       {
         id: "rings",
         title: "3. 環とイデアル",
-        description: "環の定義、単元、零因子、部分環、イデアル、剰余環を学びます。"
+        description: "環の定義、単元、零因子、部分環、イデアル、剰余環、素イデアル、CRT を学びます。"
       },
       {
         id: "polynomials-fields",
         title: "4. 多項式環と体",
-        description: "ユークリッド整域、既約多項式、体、有限体、拡大体の基本を扱います。"
+        description: "ユークリッド整域、PID、UFD、既約多項式、体、有限体、拡大体の基本を扱います。"
       },
       {
         id: "modules-actions",
         title: "5. 加群と群作用",
-        description: "加群、線形代数との対応、群作用、軌道、固定部分群を確認します。"
+        description: "加群、完全列、線形代数との対応、群作用、軌道、固定部分群を確認します。"
       },
       {
         id: "galois-intro",
         title: "6. ガロア理論の入口",
-        description: "体拡大、自己同型、分解体、ガロア群、基本定理の考え方を学びます。"
+        description: "体拡大、正規性、分離性、自己同型、分解体、ガロア群、基本定理を学びます。"
       }
     ],
     problems: [
@@ -2119,6 +2119,73 @@ const subjects = [
         explanation: "3サイクル (123) は互換の積 (13)(12) のように 2 個の互換で表せます。偶数個なので符号は +1 です。"
       },
       {
+        id: "aa-abelian-group",
+        sectionId: "groups",
+        title: "アーベル群",
+        topic: "可換群",
+        difficulty: "basic",
+        prompt: "群 G がアーベル群であるとは、どの条件を満たすことか。",
+        choices: ["任意の a,b in G について ab=ba", "任意の a in G について a^2=e", "G が有限集合である", "G が部分群を持たない"],
+        answerIndex: 0,
+        explanation: "アーベル群は群演算が可換な群です。加法群や剰余類の加法群は代表的な例です。"
+      },
+      {
+        id: "aa-direct-product-order",
+        sectionId: "groups",
+        title: "直積群の位数",
+        topic: "直積",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "|G|=6, |H|=4 の有限群について、直積群 G x H の位数はどれか。",
+        choices: ["24", "10", "6", "4"],
+        answerIndex: 0,
+        explanation: "直積群 G x H の元は組 (g,h) なので、位数は |G||H|=6*4=24 です。"
+      },
+      {
+        id: "aa-conjugacy-class",
+        sectionId: "groups",
+        title: "共役類",
+        topic: "共役",
+        difficulty: "standard",
+        prompt: "群 G の元 a の共役類として正しいものはどれか。",
+        choices: ["{gag^{-1} | g in G}", "{ga | g in G}", "{a^n | n in Z}", "{g in G | ga=ag}"],
+        answerIndex: 0,
+        explanation: "共役類は G の元で a を挟んで gag^{-1} と書ける元全体です。最後の選択肢は中心化群です。"
+      },
+      {
+        id: "aa-center-of-group",
+        sectionId: "groups",
+        title: "群の中心",
+        topic: "中心",
+        difficulty: "standard",
+        prompt: "群 G の中心 Z(G) はどのような元全体か。",
+        choices: ["G のすべての元と可換な元全体", "位数が最大の元全体", "単位元以外の元全体", "正規部分群でない元全体"],
+        answerIndex: 0,
+        explanation: "中心 Z(G) は任意の g in G と可換な元 z の集合です。Z(G) は G の正規部分群になります。"
+      },
+      {
+        id: "aa-class-equation",
+        sectionId: "groups",
+        title: "類方程式",
+        topic: "共役類",
+        difficulty: "advanced",
+        prompt: "有限群の類方程式が分解する対象として正しいものはどれか。",
+        choices: ["群を中心の元と非自明な共役類に分ける", "群をすべて巡回部分群に分ける", "環をイデアルに分ける", "体を基底に分ける"],
+        answerIndex: 0,
+        explanation: "類方程式は G の元を共役類で分割し、中心の元は 1 点共役類として扱います。p 群の中心が非自明であることの証明にも使います。"
+      },
+      {
+        id: "aa-sylow-count",
+        sectionId: "groups",
+        title: "Sylow 部分群の個数",
+        topic: "Sylow 定理",
+        difficulty: "advanced",
+        prompt: "|G|=12 の群における Sylow 3-部分群の個数 n_3 が満たす条件はどれか。",
+        choices: ["n_3 は 4 を割り、n_3=1 mod 3", "n_3 は 3 を割り、n_3=0 mod 4", "n_3 は必ず 3", "n_3 は必ず 12"],
+        answerIndex: 0,
+        explanation: "Sylow 定理より n_p は p を除いた部分を割り、かつ n_p=1 mod p です。ここでは n_3 は 4 を割り、1 mod 3 です。"
+      },
+      {
         id: "aa-homomorphism-definition",
         sectionId: "homomorphisms",
         title: "群準同型の定義",
@@ -2183,6 +2250,50 @@ const subjects = [
         choices: ["交代群 A_n", "対称群 S_n 全体", "恒等置換だけ", "すべての互換"],
         answerIndex: 0,
         explanation: "sgn の核は符号 +1 の置換全体です。これは偶置換全体からなる交代群 A_n です。"
+      },
+      {
+        id: "aa-isomorphism",
+        sectionId: "homomorphisms",
+        title: "同型",
+        topic: "同型",
+        difficulty: "basic",
+        prompt: "群 G と H が同型であるとは、どのような写像が存在することか。",
+        choices: ["全単射な群準同型", "任意の全単射", "核が G 全体である準同型", "像が単位元だけである準同型"],
+        answerIndex: 0,
+        explanation: "同型は演算を保つ全単射です。同型な群は群として同じ構造を持つと考えます。"
+      },
+      {
+        id: "aa-automorphism",
+        sectionId: "homomorphisms",
+        title: "自己同型",
+        topic: "自己同型",
+        difficulty: "standard",
+        prompt: "群 G の自己同型とはどれか。",
+        choices: ["G から G への同型", "G から任意の集合への写像", "G の任意の部分集合", "G の単位元だけを保つ写像"],
+        answerIndex: 0,
+        explanation: "自己同型は G の構造を保つ G から G への同型写像です。自己同型全体は合成で群になります。"
+      },
+      {
+        id: "aa-second-isomorphism-theorem",
+        sectionId: "homomorphisms",
+        title: "第二同型定理",
+        topic: "同型定理",
+        difficulty: "advanced",
+        prompt: "H が G の部分群、N が G の正規部分群のとき、第二同型定理の形として正しいものはどれか。",
+        choices: ["HN/N は H/(H cap N) と同型", "G/H は N と同型", "H/N は G と同型", "HN は必ず直積 H x N である"],
+        answerIndex: 0,
+        explanation: "第二同型定理は HN/N と H/(H cap N) の自然な同型を与えます。商構造を比較する基本定理です。"
+      },
+      {
+        id: "aa-simple-group",
+        sectionId: "homomorphisms",
+        title: "単純群",
+        topic: "正規部分群",
+        difficulty: "advanced",
+        prompt: "非自明な群 G が単純群であるとは、どのような性質を持つことか。",
+        choices: ["正規部分群が {e} と G だけである", "部分群をまったく持たない", "必ず可換である", "すべての元の位数が 2 である"],
+        answerIndex: 0,
+        explanation: "単純群は非自明な正規部分群を持たない群です。群を正規部分群と商群で分解する理論の基本単位です。"
       },
       {
         id: "aa-ring-definition",
@@ -2253,6 +2364,62 @@ const subjects = [
         explanation: "単位元を持つ可換環では、M が極大イデアルであることと商環 R/M が体であることは同値です。"
       },
       {
+        id: "aa-ring-hom-kernel",
+        sectionId: "rings",
+        title: "環準同型の核",
+        topic: "環準同型",
+        difficulty: "standard",
+        prompt: "環準同型 f:R -> S の核 ker(f) は R の何になるか。",
+        choices: ["イデアル", "体", "単元群", "順序集合"],
+        answerIndex: 0,
+        explanation: "環準同型の核は加法部分群で、R の任意の元を掛けても核にとどまるためイデアルです。"
+      },
+      {
+        id: "aa-integral-domain",
+        sectionId: "rings",
+        title: "整域",
+        topic: "整域",
+        difficulty: "standard",
+        prompt: "可換環 R が整域であるための条件として正しいものはどれか。",
+        choices: ["0 でない零因子を持たない", "すべての元が単元である", "イデアルを持たない", "有限集合である"],
+        answerIndex: 0,
+        explanation: "整域は 0 でない元同士の積が 0 にならない可換環です。体は整域ですが、整域が常に体とは限りません。"
+      },
+      {
+        id: "aa-ring-characteristic",
+        sectionId: "rings",
+        title: "環の標数",
+        topic: "標数",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "環 Z/9Z の標数はどれか。",
+        choices: ["9", "3", "0", "1"],
+        answerIndex: 0,
+        explanation: "標数は 1 を何回足すと 0 になるかの最小正整数です。Z/9Z では 9*1=0 なので標数は 9 です。"
+      },
+      {
+        id: "aa-chinese-remainder",
+        sectionId: "rings",
+        title: "中国剰余定理",
+        topic: "CRT",
+        difficulty: "advanced",
+        prompt: "m と n が互いに素なとき、中国剰余定理の同型として正しいものはどれか。",
+        choices: ["Z/mnZ は Z/mZ x Z/nZ と同型", "Z/mZ は Z/nZ と同型", "Z/mnZ は常に体である", "Z/mZ x Z/nZ は零環である"],
+        answerIndex: 0,
+        explanation: "m,n が互いに素なら、mod mn の情報は mod m と mod n の組と同値で、Z/mnZ ≅ Z/mZ x Z/nZ です。"
+      },
+      {
+        id: "aa-prime-ideal",
+        sectionId: "rings",
+        title: "素イデアル",
+        topic: "イデアル",
+        difficulty: "advanced",
+        prompt: "可換環 R のイデアル P が素イデアルであることと対応する商環の性質はどれか。",
+        choices: ["R/P が整域である", "R/P が必ず体である", "R/P が必ず有限環である", "R/P が単元を持たない"],
+        answerIndex: 0,
+        explanation: "素イデアル P は ab in P なら a in P または b in P を満たすイデアルで、これは R/P が整域であることと同値です。"
+      },
+      {
         id: "aa-polynomial-division",
         sectionId: "polynomials-fields",
         title: "多項式の割り算",
@@ -2318,6 +2485,50 @@ const subjects = [
         choices: ["次数を使って割り算ができるユークリッド整域である", "必ず体である", "すべての多項式が単元である", "加法について閉じていない"],
         answerIndex: 0,
         explanation: "F[x] では次数を測度として割り算の定理が成り立つため、ユークリッド整域です。ただし x などは逆元を持たないので体ではありません。"
+      },
+      {
+        id: "aa-pid-ufd",
+        sectionId: "polynomials-fields",
+        title: "PID と UFD",
+        topic: "整域",
+        difficulty: "advanced",
+        prompt: "単項イデアル整域 PID について正しいものはどれか。",
+        choices: ["すべてのイデアルが 1 元で生成され、UFD である", "すべての元が単元である", "必ず有限体である", "零因子を必ず持つ"],
+        answerIndex: 0,
+        explanation: "PID では任意のイデアルが (a) の形で、さらに一意分解整域 UFD になります。Z や体上の F[x] が基本例です。"
+      },
+      {
+        id: "aa-eisenstein",
+        sectionId: "polynomials-fields",
+        title: "Eisenstein の既約判定",
+        topic: "既約性",
+        difficulty: "advanced",
+        prompt: "整数係数多項式に対する Eisenstein の判定法が主に示す性質はどれか。",
+        choices: ["Q 上の既約性", "実根の個数", "導関数の次数", "係数の総和"],
+        answerIndex: 0,
+        explanation: "Eisenstein の判定法は、ある素数 p による係数の割り切れ方から Q 上の既約性を示す方法です。"
+      },
+      {
+        id: "aa-finite-field-order",
+        sectionId: "polynomials-fields",
+        title: "有限体の位数",
+        topic: "有限体",
+        difficulty: "standard",
+        prompt: "有限体の元の個数としてあり得るものはどれか。",
+        choices: ["p^n ただし p は素数, n>=1", "任意の合成数", "6 に限る", "無限大に限る"],
+        answerIndex: 0,
+        explanation: "有限体の位数は必ず素数冪 p^n です。逆に各 p^n に対して位数 p^n の有限体が同型を除いて一つ存在します。"
+      },
+      {
+        id: "aa-transcendental-element",
+        sectionId: "polynomials-fields",
+        title: "超越元",
+        topic: "体拡大",
+        difficulty: "standard",
+        prompt: "体拡大 K/F の元 alpha が F 上超越的であるとはどのようなことか。",
+        choices: ["alpha を根に持つ F 係数の非零多項式が存在しない", "alpha が必ず 0 である", "alpha が F に属する", "alpha の最小多項式が一次式である"],
+        answerIndex: 0,
+        explanation: "F 上の非零多項式で alpha を消すものがあれば代数的、なければ超越的です。"
       },
       {
         id: "aa-module-definition",
@@ -2386,6 +2597,50 @@ const subjects = [
         explanation: "F 加群準同型は加法と F のスカラー倍を保つ写像なので、通常の F 線形写像そのものです。"
       },
       {
+        id: "aa-free-module",
+        sectionId: "modules-actions",
+        title: "自由加群",
+        topic: "加群",
+        difficulty: "standard",
+        prompt: "環 R 上の自由加群の説明として正しいものはどれか。",
+        choices: ["ある基底を持ち、R^n のように表せる加群", "必ず体である加群", "加法が定義されない集合", "群作用を持たない加群"],
+        answerIndex: 0,
+        explanation: "自由加群は基底を持つ加群です。体上のベクトル空間に似ていますが、一般の加群は基底を持つとは限りません。"
+      },
+      {
+        id: "aa-quotient-module",
+        sectionId: "modules-actions",
+        title: "商加群",
+        topic: "加群",
+        difficulty: "standard",
+        prompt: "R 加群 M と部分加群 N に対して M/N の元は何か。",
+        choices: ["N による剰余類 m+N", "M と N の直積の元", "N の単元", "M の基底だけ"],
+        answerIndex: 0,
+        explanation: "商加群 M/N の元は m+N という剰余類です。商群や商ベクトル空間と同じ構成です。"
+      },
+      {
+        id: "aa-exact-sequence",
+        sectionId: "modules-actions",
+        title: "完全列",
+        topic: "加群準同型",
+        difficulty: "advanced",
+        prompt: "加群準同型の列で「完全」であるとは、各位置で何が成り立つことか。",
+        choices: ["前の写像の像が次の写像の核に等しい", "すべての写像が零写像である", "すべての加群が自由である", "各加群の階数が同じである"],
+        answerIndex: 0,
+        explanation: "完全列では im(f)=ker(g) が各位置で成り立ちます。核と像を通じて代数構造を追跡する基本語彙です。"
+      },
+      {
+        id: "aa-representation",
+        sectionId: "modules-actions",
+        title: "群の表現",
+        topic: "群作用",
+        difficulty: "advanced",
+        prompt: "体 F 上の群 G の線形表現とは、G からどこへの準同型か。",
+        choices: ["GL(V)", "V の部分集合", "F のイデアル", "Z(G)"],
+        answerIndex: 0,
+        explanation: "線形表現は群の元をベクトル空間 V の可逆線形変換として実現する準同型 G -> GL(V) です。"
+      },
+      {
         id: "aa-field-extension",
         sectionId: "galois-intro",
         title: "体拡大",
@@ -2450,6 +2705,50 @@ const subjects = [
         choices: ["中間体と Gal(K/F) の部分群", "イデアルと素数", "ベクトルと行列", "極限と導関数"],
         answerIndex: 0,
         explanation: "ガロア理論の基本定理は、中間体 F <= E <= K とガロア群の部分群を包含関係を反転して対応させます。"
+      },
+      {
+        id: "aa-tower-law",
+        sectionId: "galois-intro",
+        title: "次数公式",
+        topic: "体拡大",
+        difficulty: "standard",
+        prompt: "体拡大 F <= E <= K が有限次のとき、次数公式として正しいものはどれか。",
+        choices: ["[K:F]=[K:E][E:F]", "[K:F]=[K:E]+[E:F]", "[K:F]=[E:F]-[K:E]", "[K:F]=[K:E]/[E:F]"],
+        answerIndex: 0,
+        explanation: "体拡大をベクトル空間として見たとき、基底を掛け合わせることで [K:F]=[K:E][E:F] が成り立ちます。"
+      },
+      {
+        id: "aa-normal-extension",
+        sectionId: "galois-intro",
+        title: "正規拡大",
+        topic: "正規性",
+        difficulty: "advanced",
+        prompt: "代数拡大 K/F が正規拡大であることの説明として適切なものはどれか。",
+        choices: ["F 上既約多項式が K に根を持てば K で完全に分解する", "K が必ず有限体である", "K/F の次数が必ず 1 である", "K が環でない"],
+        answerIndex: 0,
+        explanation: "正規拡大では、F 上既約な多項式が K に一つ根を持つなら、その共役根もすべて K に含まれます。"
+      },
+      {
+        id: "aa-separable-extension",
+        sectionId: "galois-intro",
+        title: "分離拡大",
+        topic: "分離性",
+        difficulty: "advanced",
+        prompt: "代数拡大が分離的であるとは、各元の最小多項式がどのような性質を持つことか。",
+        choices: ["重根を持たない", "必ず一次式である", "係数がすべて整数である", "導関数が 0 である"],
+        answerIndex: 0,
+        explanation: "分離的とは最小多項式が重根を持たないことです。標数 0 の体上の代数拡大はすべて分離的です。"
+      },
+      {
+        id: "aa-galois-extension",
+        sectionId: "galois-intro",
+        title: "ガロア拡大",
+        topic: "ガロア拡大",
+        difficulty: "advanced",
+        prompt: "有限次代数拡大 K/F がガロア拡大であるための標準的な条件はどれか。",
+        choices: ["正規かつ分離的である", "正規だが分離的でない", "必ず次数 2 である", "K が F と同じ体でないことだけ"],
+        answerIndex: 0,
+        explanation: "有限次の場合、K/F がガロア拡大であることは正規かつ分離的であることと同値です。"
       }
     ]
   },
