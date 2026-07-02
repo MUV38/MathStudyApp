@@ -522,10 +522,20 @@ select {
   }
 
   .topbar {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 14px;
-    padding: 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  .topbar .eyebrow {
+    display: none;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    line-height: 1.15;
   }
 
   .layout {
@@ -598,20 +608,31 @@ select {
   }
 
   .summary {
+    display: flex;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
     min-width: 0;
   }
 
   .summary span {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 2px;
     min-width: 0;
-    padding: 8px;
+    padding: 5px 6px;
+    white-space: nowrap;
     text-align: center;
+    font-size: 0.7rem;
+  }
+
+  .summary strong {
+    font-size: 0.95rem;
   }
 
   .workspace {
     border-width: 1px 0 0;
     border-radius: 0;
-    padding: 14px;
+    padding: 10px;
   }
 
   .workspace-head {
@@ -619,9 +640,9 @@ select {
     top: 0;
     z-index: 10;
     display: grid;
-    gap: 12px;
-    margin: -14px -14px 14px;
-    padding: 12px 14px;
+    gap: 8px;
+    margin: -10px -10px 10px;
+    padding: 8px 10px;
     border-bottom: 1px solid var(--line);
     background: rgba(245, 247, 249, 0.96);
     backdrop-filter: blur(10px);
@@ -629,51 +650,70 @@ select {
 
   .workspace-title {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 2px 10px;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 2px 8px;
     align-items: center;
   }
 
-  .workspace-title .eyebrow,
   .workspace-title h2,
   .workspace-title .section-label {
     grid-column: 2;
   }
 
+  .workspace-title .eyebrow {
+    display: none;
+  }
+
+  .workspace-title h2 {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .workspace-title .section-label {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
   .menu-button {
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     align-self: stretch;
-    min-width: 82px;
-    padding: 0 10px;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 8px;
     border-color: var(--accent);
     background: var(--accent);
     color: #fff;
+    font-size: 0.86rem;
     font-weight: 700;
   }
 
   .filters {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 42px;
-    gap: 8px;
+    gap: 6px;
     align-items: end;
   }
 
   .filters label {
     min-width: 0;
+    gap: 0;
+    font-size: 0;
   }
 
   select {
     width: 100%;
-    min-height: 44px;
-    padding-right: 28px;
+    min-height: 40px;
+    padding: 0 26px 0 10px;
+    font-size: 0.88rem;
   }
 
   .problem-card {
-    padding: 14px;
+    padding: 12px;
   }
 
   .problem-meta {
@@ -712,8 +752,8 @@ select {
     position: sticky;
     bottom: 0;
     z-index: 8;
-    margin: 16px -14px -14px;
-    padding: 10px 14px;
+    margin: 14px -12px -12px;
+    padding: 8px 12px;
     border-top: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(10px);
