@@ -4582,6 +4582,10 @@ const els = {
   reviewCount: document.querySelector("#reviewCount"),
   subjectList: document.querySelector("#subjectList"),
   sectionList: document.querySelector("#sectionList"),
+  sidebar: document.querySelector("#sidebar"),
+  sidebarBackdrop: document.querySelector("#sidebarBackdrop"),
+  openSidebarButton: document.querySelector("#openSidebarButton"),
+  closeSidebarButton: document.querySelector("#closeSidebarButton"),
   currentSubjectLabel: document.querySelector("#currentSubjectLabel"),
   currentSectionLabel: document.querySelector("#currentSectionLabel"),
   modeTitle: document.querySelector("#modeTitle"),
@@ -4624,6 +4628,20 @@ function loadProgress() {
 
 function saveProgress() {
   localStorage.setItem(storageKey, JSON.stringify(state.progress));
+}
+
+function setSidebarOpen(open) {
+  document.body.classList.toggle("sidebar-open", open);
+  els.openSidebarButton?.setAttribute("aria-expanded", String(open));
+  if (els.sidebarBackdrop) {
+    els.sidebarBackdrop.hidden = !open;
+  }
+}
+
+function closeSidebarOnMobile() {
+  if (window.matchMedia("(max-width: 820px)").matches) {
+    setSidebarOpen(false);
+  }
 }
 
 function getSubject() {
@@ -4868,6 +4886,7 @@ function renderSubjects() {
       state.subjectId = subject.id;
       state.sectionId = subject.sections[0]?.id ?? "";
       pickProblem();
+      closeSidebarOnMobile();
       render();
     });
     els.subjectList.append(button);
@@ -4893,6 +4912,7 @@ function renderSections() {
     button.addEventListener("click", () => {
       state.sectionId = section.id;
       pickProblem();
+      closeSidebarOnMobile();
       render();
     });
     els.sectionList.append(button);
@@ -5114,8 +5134,27 @@ function render() {
 document.querySelectorAll(".mode-button").forEach((button) => {
   button.addEventListener("click", () => {
     state.mode = button.dataset.mode;
+    closeSidebarOnMobile();
     render();
   });
+});
+
+els.openSidebarButton.addEventListener("click", () => {
+  setSidebarOpen(true);
+});
+
+els.closeSidebarButton.addEventListener("click", () => {
+  setSidebarOpen(false);
+});
+
+els.sidebarBackdrop.addEventListener("click", () => {
+  setSidebarOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setSidebarOpen(false);
+  }
 });
 
 els.difficultyFilter.addEventListener("change", () => {
