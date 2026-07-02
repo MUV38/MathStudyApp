@@ -4322,6 +4322,9 @@ const problemTypeLabels = {
   calculation: "計算"
 };
 
+const defaultTermDescription =
+  "この問題で確認する中心用語です。定義、使う場面、解答での役割を解説とあわせて確認しましょう。";
+
 const state = {
   subjectId: "linear-algebra",
   sectionId: "vectors",
@@ -4355,6 +4358,7 @@ const els = {
   problemType: document.querySelector("#problemType"),
   problemTitle: document.querySelector("#problemTitle"),
   problemPrompt: document.querySelector("#problemPrompt"),
+  termPanel: document.querySelector("#termPanel"),
   answerChoices: document.querySelector("#answerChoices"),
   submitAnswerButton: document.querySelector("#submitAnswerButton"),
   nextProblemButton: document.querySelector("#nextProblemButton"),
@@ -4501,6 +4505,72 @@ function setMathContent(element, text) {
   element.innerHTML = formatMathText(text);
 }
 
+function normalizeTerms(problem) {
+  const rawTerms =
+    Array.isArray(problem.terms) && problem.terms.length > 0
+      ? problem.terms
+      : [problem.topic].filter(Boolean);
+
+  return rawTerms.map((term, index) => {
+    if (typeof term === "string") {
+      return {
+        id: `${problem.id}-term-${index}`,
+        name: term,
+        description: defaultTermDescription
+      };
+    }
+
+    return {
+      id: term.id ?? `${problem.id}-term-${index}`,
+      name: term.name ?? term.title ?? problem.topic ?? "Term",
+      description: term.description ?? term.definition ?? defaultTermDescription
+    };
+  });
+}
+
+function renderTermPanel(problem) {
+  const terms = normalizeTerms(problem);
+  if (terms.length === 0) {
+    els.termPanel.className = "term-panel hidden";
+    els.termPanel.innerHTML = "";
+    return;
+  }
+
+  els.termPanel.className = "term-panel";
+  els.termPanel.innerHTML = `
+    <div class="term-panel-head">
+      <strong>用語確認</strong>
+      <span>${terms.length}件</span>
+    </div>
+    <div class="term-list">
+      ${terms
+        .map(
+          (term) => `
+            <article id="${escapeHtml(term.id)}" class="term-card" tabindex="-1">
+              <h4>${escapeHtml(term.name)}</h4>
+              <p>${formatMathText(term.description)}</p>
+            </article>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function buildTermLinks(problem) {
+  const terms = normalizeTerms(problem);
+  if (terms.length === 0) return "";
+
+  return `
+    <div class="feedback-terms">
+      <span>確認する用語</span>
+      ${terms
+        .map((term) => `<a href="#${escapeHtml(term.id)}">${escapeHtml(term.name)}</a>`)
+        .join("")}
+    </div>
+  `;
+}
+
 function queueMathTypeset() {
   if (!window.MathJax?.typesetPromise) return;
   window.MathJax.typesetPromise([document.body]).catch(() => {});
@@ -4636,6 +4706,8 @@ function renderProblem() {
     els.problemType.textContent = "";
     els.problemTitle.textContent = "問題がありません";
     els.problemPrompt.textContent = "この条件に合う問題はまだ登録されていません。";
+    els.termPanel.className = "term-panel hidden";
+    els.termPanel.innerHTML = "";
     els.answerChoices.innerHTML = "";
     els.feedback.className = "feedback hidden";
     els.submitAnswerButton.disabled = true;
@@ -4648,6 +4720,7 @@ function renderProblem() {
   els.problemType.textContent = problemTypeLabels[getProblemType(problem)];
   els.problemTitle.textContent = problem.title;
   setMathContent(els.problemPrompt, problem.prompt);
+  renderTermPanel(problem);
   els.answerChoices.innerHTML = "";
   els.feedback.className = "feedback hidden";
   els.feedback.textContent = "";
@@ -4712,6 +4785,9 @@ function submitAnswer() {
       ? `正解です。${problem.explanation}`
       : `不正解です。正解は「${problem.choices[problem.answerIndex]}」。${problem.explanation}`
   );
+  if (!correct) {
+    els.feedback.insertAdjacentHTML("beforeend", buildTermLinks(problem));
+  }
   queueMathTypeset();
 }
 
