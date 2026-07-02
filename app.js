@@ -3171,7 +3171,7 @@ const subjects = [
   {
     id: "probability-statistics",
     name: "確率統計学",
-    description: "確率、確率変数、分布、記述統計、推定、検定、回帰と相関",
+    description: "確率、数え上げ、確率変数、分布、極限定理、標本分布、推定、検定、回帰と相関",
     enabled: true,
     sections: [
       {
@@ -3180,34 +3180,54 @@ const subjects = [
         description: "標本空間、事象、条件付き確率、独立性、ベイズの定理を確認します。"
       },
       {
+        id: "combinatorics-counting",
+        title: "2. 組合せと数え上げ",
+        description: "順列、組合せ、包除原理、重複組合せ、超幾何分布への入口を確認します。"
+      },
+      {
         id: "random-variables",
-        title: "2. 確率変数と期待値",
+        title: "3. 確率変数と期待値",
         description: "離散・連続確率変数、期待値、分散、共分散を扱います。"
       },
       {
         id: "distributions",
-        title: "3. 代表的な確率分布",
-        description: "二項分布、ポアソン分布、正規分布、指数分布、標準化を学びます。"
+        title: "4. 代表的な確率分布",
+        description: "二項分布、幾何分布、ポアソン分布、一様分布、指数分布、正規分布を学びます。"
+      },
+      {
+        id: "limit-theorems",
+        title: "5. 極限定理",
+        description: "大数の法則、中心極限定理、正規近似、標本平均の漸近分布を扱います。"
+      },
+      {
+        id: "sampling-distributions",
+        title: "6. 標本分布",
+        description: "標本平均、標本比率、t 分布、カイ二乗分布、F 分布を確認します。"
       },
       {
         id: "descriptive-statistics",
-        title: "4. 記述統計",
+        title: "7. 記述統計",
         description: "平均、中央値、分散、標準偏差、四分位範囲、相関係数を確認します。"
       },
       {
         id: "estimation",
-        title: "5. 推定",
-        description: "点推定、不偏性、一致性、標本平均、信頼区間を扱います。"
+        title: "8. 推定",
+        description: "点推定、不偏性、一致性、標本平均、信頼区間、最尤推定を扱います。"
       },
       {
         id: "hypothesis-testing",
-        title: "6. 仮説検定",
+        title: "9. 仮説検定",
         description: "帰無仮説、対立仮説、有意水準、p値、第1種・第2種の誤りを学びます。"
       },
       {
+        id: "advanced-inference",
+        title: "10. 発展的な統計的推測",
+        description: "カイ二乗検定、分散分析、ベイズ推定、モデル選択の入口を扱います。"
+      },
+      {
         id: "regression-correlation",
-        title: "7. 回帰と相関",
-        description: "散布図、相関係数、単回帰、最小二乗法、決定係数を確認します。"
+        title: "11. 回帰と相関",
+        description: "散布図、相関係数、単回帰、重回帰、最小二乗法、決定係数を確認します。"
       }
     ],
     problems: [
@@ -3610,6 +3630,455 @@ const subjects = [
         choices: ["目的変数の変動のうち回帰で説明される割合", "回帰係数そのもの", "標本サイズ", "残差の平均"],
         answerIndex: 0,
         explanation: "R^2 は、目的変数の全変動のうちモデルで説明できる割合を表します。"
+      },
+      {
+        id: "ps-permutation",
+        sectionId: "combinatorics-counting",
+        title: "順列",
+        topic: "数え上げ",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "異なる 5 個のものから 3 個を順に並べる方法の数はどれか。",
+        choices: ["60", "10", "15", "125"],
+        answerIndex: 0,
+        explanation: "順序を区別するので 5P3=5*4*3=60 です。"
+      },
+      {
+        id: "ps-combination",
+        sectionId: "combinatorics-counting",
+        title: "組合せ",
+        topic: "数え上げ",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "異なる 6 個のものから 2 個を選ぶ組合せの数はどれか。",
+        choices: ["15", "12", "30", "36"],
+        answerIndex: 0,
+        explanation: "順序を区別しないので C(6,2)=6*5/2=15 です。"
+      },
+      {
+        id: "ps-inclusion-exclusion",
+        sectionId: "combinatorics-counting",
+        title: "包除原理",
+        topic: "数え上げ",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "|A|=20, |B|=15, |A cap B|=5 のとき、|A union B| はどれか。",
+        choices: ["30", "35", "40", "25"],
+        answerIndex: 0,
+        explanation: "包除原理より |A union B|=|A|+|B|-|A cap B|=20+15-5=30 です。"
+      },
+      {
+        id: "ps-combinations-with-repetition",
+        sectionId: "combinatorics-counting",
+        title: "重複組合せ",
+        topic: "数え上げ",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "3 種類の品物から重複を許して 4 個選ぶ方法の数はどれか。",
+        choices: ["15", "12", "9", "81"],
+        answerIndex: 0,
+        explanation: "重複組合せは C(n+r-1,r) です。C(3+4-1,4)=C(6,4)=15 です。"
+      },
+      {
+        id: "ps-hypergeometric-setup",
+        sectionId: "combinatorics-counting",
+        title: "非復元抽出",
+        topic: "超幾何分布",
+        difficulty: "advanced",
+        prompt: "赤玉 4 個、白玉 6 個から戻さず 3 個引くとき、赤玉の個数が従う分布として最も適切なものはどれか。",
+        choices: ["超幾何分布", "二項分布", "ポアソン分布", "指数分布"],
+        answerIndex: 0,
+        explanation: "有限母集団から非復元で抽出し、成功数を数えるので超幾何分布です。"
+      },
+      {
+        id: "ps-total-probability",
+        sectionId: "probability-basics",
+        title: "全確率の公式",
+        topic: "全確率",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "A と A^c が標本空間を分割し、P(A)=0.4, P(B|A)=0.5, P(B|A^c)=0.2 のとき P(B) はどれか。",
+        choices: ["0.32", "0.70", "0.20", "0.08"],
+        answerIndex: 0,
+        explanation: "P(B)=P(B|A)P(A)+P(B|A^c)P(A^c)=0.5*0.4+0.2*0.6=0.32 です。"
+      },
+      {
+        id: "ps-complement-rule",
+        sectionId: "probability-basics",
+        title: "余事象",
+        topic: "確率の基本性質",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "P(A)=0.72 のとき P(A^c) はどれか。",
+        choices: ["0.28", "0.72", "1.72", "0"],
+        answerIndex: 0,
+        explanation: "余事象の確率は P(A^c)=1-P(A)=1-0.72=0.28 です。"
+      },
+      {
+        id: "ps-law-total-expectation",
+        sectionId: "random-variables",
+        title: "全期待値の公式",
+        topic: "条件付き期待値",
+        difficulty: "advanced",
+        prompt: "全期待値の公式として正しいものはどれか。",
+        choices: ["E[X]=E[E[X|Y]]", "E[X]=E[X|Y]", "E[X]=Var(X)", "E[X]=P(X|Y)"],
+        answerIndex: 0,
+        explanation: "条件付き期待値を Y について平均すると元の期待値に戻ります。これが全期待値の公式です。"
+      },
+      {
+        id: "ps-correlation-definition",
+        sectionId: "random-variables",
+        title: "相関係数の定義",
+        topic: "相関",
+        difficulty: "standard",
+        prompt: "確率変数 X,Y の相関係数として正しい式はどれか。",
+        choices: ["Cov(X,Y)/(sd(X)sd(Y))", "E[X]+E[Y]", "Var(X)+Var(Y)", "Cov(X,Y)^2"],
+        answerIndex: 0,
+        explanation: "相関係数は共分散をそれぞれの標準偏差で割って無次元化した量です。"
+      },
+      {
+        id: "ps-mgf-mean",
+        sectionId: "random-variables",
+        title: "モーメント母関数",
+        topic: "母関数",
+        difficulty: "advanced",
+        prompt: "モーメント母関数 M_X(t)=E[e^{tX}] から E[X] を得る方法として正しいものはどれか。",
+        choices: ["M_X'(0)", "M_X(1)", "M_X(0)", "M_X''(1)"],
+        answerIndex: 0,
+        explanation: "M_X(t) を t で微分して 0 を代入すると 1 次モーメント E[X] が得られます。"
+      },
+      {
+        id: "ps-marginal-distribution",
+        sectionId: "random-variables",
+        title: "周辺分布",
+        topic: "同時分布",
+        difficulty: "standard",
+        prompt: "離散同時分布 p(x,y) から X の周辺分布 p_X(x) を求める操作として正しいものはどれか。",
+        choices: ["y について和を取る", "x について和を取る", "p(x,y) を二乗する", "最大値だけを取る"],
+        answerIndex: 0,
+        explanation: "X=x に対応するすべての y の可能性を足し合わせるので p_X(x)=sum_y p(x,y) です。"
+      },
+      {
+        id: "ps-geometric-mean",
+        sectionId: "distributions",
+        title: "幾何分布の平均",
+        topic: "幾何分布",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "成功確率 p=0.25 の幾何分布で、初めて成功するまでの試行回数の平均はどれか。",
+        choices: ["4", "0.25", "3", "16"],
+        answerIndex: 0,
+        explanation: "初成功までの試行回数で定義する幾何分布の平均は 1/p です。1/0.25=4 です。"
+      },
+      {
+        id: "ps-uniform-continuous-mean",
+        sectionId: "distributions",
+        title: "一様分布の平均",
+        topic: "一様分布",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "X ~ Uniform(2, 8) の平均はどれか。",
+        choices: ["5", "6", "10", "3"],
+        answerIndex: 0,
+        explanation: "連続一様分布 Uniform(a,b) の平均は (a+b)/2 です。(2+8)/2=5 です。"
+      },
+      {
+        id: "ps-exponential-mean",
+        sectionId: "distributions",
+        title: "指数分布の平均",
+        topic: "指数分布",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "X ~ Exp(lambda) の平均として正しいものはどれか。",
+        choices: ["1/lambda", "lambda", "lambda^2", "0"],
+        answerIndex: 0,
+        explanation: "指数分布 Exp(lambda) の平均は 1/lambda、分散は 1/lambda^2 です。"
+      },
+      {
+        id: "ps-memoryless-property",
+        sectionId: "distributions",
+        title: "無記憶性",
+        topic: "指数分布",
+        difficulty: "advanced",
+        prompt: "連続分布の中で無記憶性を持つ代表的な分布はどれか。",
+        choices: ["指数分布", "正規分布", "一様分布", "t 分布"],
+        answerIndex: 0,
+        explanation: "指数分布は P(X>s+t | X>s)=P(X>t) を満たし、待ち時間モデルで重要です。"
+      },
+      {
+        id: "ps-law-large-numbers",
+        sectionId: "limit-theorems",
+        title: "大数の法則",
+        topic: "極限定理",
+        difficulty: "basic",
+        prompt: "独立同分布な標本の標本平均が母平均に近づくことを述べる定理はどれか。",
+        choices: ["大数の法則", "ベイズの定理", "包除原理", "最小二乗法"],
+        answerIndex: 0,
+        explanation: "大数の法則は、標本サイズが大きくなると標本平均が母平均へ近づくことを述べます。"
+      },
+      {
+        id: "ps-central-limit-theorem",
+        sectionId: "limit-theorems",
+        title: "中心極限定理",
+        topic: "極限定理",
+        difficulty: "standard",
+        prompt: "中心極限定理の説明として最も適切なものはどれか。",
+        choices: ["標本平均を標準化すると、大標本で近似的に標準正規分布に従う", "任意の確率変数が一様分布になる", "標本分散が常に 0 になる", "相関係数が必ず 1 になる"],
+        answerIndex: 0,
+        explanation: "独立同分布で分散が有限なら、標本平均の標準化量は大標本で標準正規分布に近づきます。"
+      },
+      {
+        id: "ps-normal-approximation-binomial",
+        sectionId: "limit-theorems",
+        title: "二項分布の正規近似",
+        topic: "正規近似",
+        difficulty: "standard",
+        prompt: "X ~ Bin(n,p) を大きな n で正規近似するとき、近似に使う平均と分散はどれか。",
+        choices: ["平均 np、分散 np(1-p)", "平均 p、分散 n", "平均 n、分散 p", "平均 0、分散 1"],
+        answerIndex: 0,
+        explanation: "二項分布の平均は np、分散は np(1-p) なので、この正規分布で近似します。"
+      },
+      {
+        id: "ps-clt-standard-error",
+        sectionId: "limit-theorems",
+        title: "標本平均の標準化",
+        topic: "中心極限定理",
+        difficulty: "advanced",
+        prompt: "母平均 mu、母標準偏差 sigma の母集団から大きさ n の標本を取るとき、標本平均 bar X の標準化量として正しいものはどれか。",
+        choices: ["(bar X-mu)/(sigma/sqrt(n))", "(bar X-mu)/sigma", "(bar X-mu)/n", "bar X/sigma"],
+        answerIndex: 0,
+        explanation: "標本平均の標準偏差は sigma/sqrt(n) なので、それで割って標準化します。"
+      },
+      {
+        id: "ps-sample-mean-distribution-normal",
+        sectionId: "sampling-distributions",
+        title: "正規母集団の標本平均",
+        topic: "標本分布",
+        difficulty: "standard",
+        prompt: "X_i ~ N(mu, sigma^2) が独立同分布のとき、標本平均 bar X の分布はどれか。",
+        choices: ["N(mu, sigma^2/n)", "N(n mu, sigma^2)", "N(mu, sigma^2)", "t(n-1)"],
+        answerIndex: 0,
+        explanation: "正規母集団からの標本平均は厳密に正規分布に従い、平均 mu、分散 sigma^2/n です。"
+      },
+      {
+        id: "ps-t-distribution-use",
+        sectionId: "sampling-distributions",
+        title: "t 分布",
+        topic: "標本分布",
+        difficulty: "standard",
+        prompt: "母分散が未知の正規母集団の平均を小標本で推測するとき、主に使う分布はどれか。",
+        choices: ["t 分布", "一様分布", "ポアソン分布", "幾何分布"],
+        answerIndex: 0,
+        explanation: "母分散を標本分散で推定するため、標準正規分布ではなく自由度 n-1 の t 分布を使います。"
+      },
+      {
+        id: "ps-chi-square-variance",
+        sectionId: "sampling-distributions",
+        title: "カイ二乗分布",
+        topic: "標本分布",
+        difficulty: "advanced",
+        prompt: "正規母集団で母分散 sigma^2 の推測に現れる統計量として正しいものはどれか。",
+        choices: ["(n-1)S^2/sigma^2 は自由度 n-1 のカイ二乗分布に従う", "bar X は常にカイ二乗分布に従う", "S^2 は常に 0 である", "sigma^2 は t 分布に従う"],
+        answerIndex: 0,
+        explanation: "正規母集団では標本分散を標準化した (n-1)S^2/sigma^2 がカイ二乗分布に従います。"
+      },
+      {
+        id: "ps-f-distribution",
+        sectionId: "sampling-distributions",
+        title: "F 分布",
+        topic: "標本分布",
+        difficulty: "advanced",
+        prompt: "2つの独立な正規母集団の分散比の検定で主に使う分布はどれか。",
+        choices: ["F 分布", "指数分布", "二項分布", "幾何分布"],
+        answerIndex: 0,
+        explanation: "独立なカイ二乗変数を自由度で割った比は F 分布に従い、分散比や分散分析で使われます。"
+      },
+      {
+        id: "ps-sample-proportion-se",
+        sectionId: "sampling-distributions",
+        title: "標本比率の標準誤差",
+        topic: "標本比率",
+        difficulty: "standard",
+        prompt: "母比率 p の標本比率 phat の標準誤差として正しいものはどれか。",
+        choices: ["sqrt(p(1-p)/n)", "p/n", "sqrt(n p)", "p(1-p)n"],
+        answerIndex: 0,
+        explanation: "ベルヌーイ変数の分散は p(1-p) なので、標本平均である標本比率の標準誤差は sqrt(p(1-p)/n) です。"
+      },
+      {
+        id: "ps-mle-definition",
+        sectionId: "estimation",
+        title: "最尤推定",
+        topic: "最尤推定",
+        difficulty: "standard",
+        prompt: "最尤推定量の説明として正しいものはどれか。",
+        choices: ["観測データの尤度を最大にする母数の値", "標本平均だけを常に選ぶ方法", "分散を必ず 0 にする値", "p値を最大にする仮説"],
+        answerIndex: 0,
+        explanation: "最尤推定は、得られたデータが最も起こりやすくなるような母数を選ぶ方法です。"
+      },
+      {
+        id: "ps-bernoulli-mle",
+        sectionId: "estimation",
+        title: "ベルヌーイ分布の最尤推定",
+        topic: "最尤推定",
+        difficulty: "advanced",
+        prompt: "ベルヌーイ分布の成功確率 p の最尤推定量として正しいものはどれか。",
+        choices: ["標本比率", "標本分散", "最大値", "中央値"],
+        answerIndex: 0,
+        explanation: "ベルヌーイ標本の尤度を最大にする p は成功回数を標本サイズで割った標本比率です。"
+      },
+      {
+        id: "ps-method-of-moments",
+        sectionId: "estimation",
+        title: "モーメント法",
+        topic: "点推定",
+        difficulty: "advanced",
+        prompt: "モーメント法の基本的な考え方として正しいものはどれか。",
+        choices: ["母モーメントと標本モーメントを対応させて母数を推定する", "p値だけで母数を決める", "標本を必ず正規分布に変換する", "帰無仮説を常に採択する"],
+        answerIndex: 0,
+        explanation: "モーメント法は、理論上の平均や分散などを標本の対応する量に等しいと置いて母数を求めます。"
+      },
+      {
+        id: "ps-confidence-interval-proportion",
+        sectionId: "estimation",
+        title: "母比率の信頼区間",
+        topic: "信頼区間",
+        difficulty: "advanced",
+        prompt: "大標本で母比率 p の信頼区間を作るとき、標本比率 phat の標準誤差の推定値としてよく使うものはどれか。",
+        choices: ["sqrt(phat(1-phat)/n)", "phat/n", "sqrt(n/phat)", "1/n"],
+        answerIndex: 0,
+        explanation: "母比率 p を標本比率 phat で置き換え、sqrt(phat(1-phat)/n) を標準誤差の推定値にします。"
+      },
+      {
+        id: "ps-one-sample-t-test",
+        sectionId: "hypothesis-testing",
+        title: "1標本 t 検定",
+        topic: "平均の検定",
+        difficulty: "standard",
+        prompt: "母分散未知の正規母集団で母平均 mu=mu0 を検定するとき、1標本 t 検定で使う統計量はどれか。",
+        choices: ["(bar X-mu0)/(S/sqrt(n))", "(bar X-mu0)/sigma", "S^2/mu0", "n bar X"],
+        answerIndex: 0,
+        explanation: "母分散未知なので標本標準偏差 S を使い、自由度 n-1 の t 分布と比較します。"
+      },
+      {
+        id: "ps-z-test-known-variance",
+        sectionId: "hypothesis-testing",
+        title: "Z 検定",
+        topic: "平均の検定",
+        difficulty: "standard",
+        prompt: "母分散 sigma^2 が既知で母平均を検定するとき、大標本または正規母集団で使う標準化量はどれか。",
+        choices: ["(bar X-mu0)/(sigma/sqrt(n))", "(bar X-mu0)/(S/sqrt(n))", "S^2/sigma^2", "phat-p0"],
+        answerIndex: 0,
+        explanation: "母標準偏差 sigma が既知なら、標本平均を sigma/sqrt(n) で標準化して標準正規分布と比較します。"
+      },
+      {
+        id: "ps-proportion-test",
+        sectionId: "hypothesis-testing",
+        title: "母比率の検定",
+        topic: "比率の検定",
+        difficulty: "advanced",
+        prompt: "H0: p=p0 の大標本検定で、標本比率 phat の標準化に使う標準誤差はどれか。",
+        choices: ["sqrt(p0(1-p0)/n)", "sqrt(phat(1-phat)/n)", "p0/n", "sqrt(n p0)"],
+        answerIndex: 0,
+        explanation: "帰無仮説のもとでの分布を使うため、標準誤差は sqrt(p0(1-p0)/n) です。"
+      },
+      {
+        id: "ps-power",
+        sectionId: "hypothesis-testing",
+        title: "検出力",
+        topic: "検定の性質",
+        difficulty: "advanced",
+        prompt: "検定の検出力 power として正しい説明はどれか。",
+        choices: ["対立仮説が真のとき帰無仮説を棄却する確率", "帰無仮説が真のとき棄却する確率", "p値そのもの", "有意水準の逆数"],
+        answerIndex: 0,
+        explanation: "検出力は 1-第2種の誤りの確率で、真の効果を検出できる確率です。"
+      },
+      {
+        id: "ps-chi-square-goodness-fit",
+        sectionId: "advanced-inference",
+        title: "適合度検定",
+        topic: "カイ二乗検定",
+        difficulty: "standard",
+        prompt: "観測度数が理論分布にどの程度合っているかを調べる代表的な検定はどれか。",
+        choices: ["カイ二乗適合度検定", "1標本 t 検定", "符号検定", "単回帰"],
+        answerIndex: 0,
+        explanation: "カテゴリごとの観測度数と期待度数のずれをカイ二乗統計量で評価します。"
+      },
+      {
+        id: "ps-chi-square-independence",
+        sectionId: "advanced-inference",
+        title: "独立性の検定",
+        topic: "カイ二乗検定",
+        difficulty: "standard",
+        prompt: "クロス集計表で2つのカテゴリ変数が独立かどうかを調べる代表的な方法はどれか。",
+        choices: ["カイ二乗独立性検定", "中心極限定理", "最尤推定", "単回帰の予測"],
+        answerIndex: 0,
+        explanation: "クロス集計表の観測度数と独立を仮定した期待度数を比べるのがカイ二乗独立性検定です。"
+      },
+      {
+        id: "ps-anova-purpose",
+        sectionId: "advanced-inference",
+        title: "分散分析",
+        topic: "ANOVA",
+        difficulty: "advanced",
+        prompt: "一元配置分散分析 ANOVA の主な目的はどれか。",
+        choices: ["3群以上の平均に差があるかを調べる", "1つの比率だけを推定する", "データを必ず正規化する", "相関係数を 1 にする"],
+        answerIndex: 0,
+        explanation: "ANOVA は群間変動と群内変動を比較し、複数群の平均差を検定します。"
+      },
+      {
+        id: "ps-bayesian-posterior",
+        sectionId: "advanced-inference",
+        title: "事後分布",
+        topic: "ベイズ推定",
+        difficulty: "advanced",
+        prompt: "ベイズ推定で事後分布に比例するものとして正しい組合せはどれか。",
+        choices: ["尤度 * 事前分布", "p値 * 有意水準", "標本分散 * 標本サイズ", "相関係数 * 回帰係数"],
+        answerIndex: 0,
+        explanation: "ベイズの公式により、事後分布は正規化定数を除いて尤度と事前分布の積に比例します。"
+      },
+      {
+        id: "ps-aic-purpose",
+        sectionId: "advanced-inference",
+        title: "AIC",
+        topic: "モデル選択",
+        difficulty: "advanced",
+        prompt: "AIC の主な用途として正しいものはどれか。",
+        choices: ["予測性能とモデルの複雑さのバランスでモデルを比較する", "帰無仮説を必ず棄却する", "標本平均を計算する", "確率を 1 に正規化する"],
+        answerIndex: 0,
+        explanation: "AIC は尤度に基づく当てはまりとパラメータ数による複雑さの罰則を組み合わせたモデル選択基準です。"
+      },
+      {
+        id: "ps-multiple-regression",
+        sectionId: "regression-correlation",
+        title: "重回帰",
+        topic: "回帰",
+        difficulty: "standard",
+        prompt: "重回帰モデルの説明として正しいものはどれか。",
+        choices: ["複数の説明変数で1つの目的変数を説明するモデル", "目的変数が必ず2つあるモデル", "説明変数を使わないモデル", "相関係数だけを計算する手法"],
+        answerIndex: 0,
+        explanation: "重回帰は y=beta0+beta1 x1+...+betap xp+誤差 のように複数の説明変数を使います。"
+      },
+      {
+        id: "ps-residual-definition",
+        sectionId: "regression-correlation",
+        title: "残差",
+        topic: "回帰診断",
+        difficulty: "basic",
+        prompt: "回帰分析における残差として正しいものはどれか。",
+        choices: ["観測値と予測値の差", "説明変数の平均", "相関係数の二乗", "標本サイズ"],
+        answerIndex: 0,
+        explanation: "残差は観測された y とモデルによる予測値 yhat の差で、当てはまりの確認に使います。"
+      },
+      {
+        id: "ps-omitted-variable",
+        sectionId: "regression-correlation",
+        title: "交絡と欠落変数",
+        topic: "回帰の解釈",
+        difficulty: "advanced",
+        prompt: "回帰係数を因果効果として解釈するときに特に注意すべきものはどれか。",
+        choices: ["交絡変数や欠落変数の影響", "選択肢の並び順", "標本平均の単位", "グラフの色"],
+        answerIndex: 0,
+        explanation: "関連する変数をモデルに入れないと、推定された回帰係数にバイアスが生じることがあります。"
       }
     ]
   }
