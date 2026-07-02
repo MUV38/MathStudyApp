@@ -2121,6 +2121,50 @@ const subjects = [
         explanation: "grad f は方向微分を最大にする方向を向き、その大きさが最大増加率を表します。"
       },
       {
+        id: "vc-curl-gradient-identity",
+        sectionId: "vector-fields",
+        title: "勾配の回転",
+        topic: "ベクトル恒等式",
+        difficulty: "standard",
+        prompt: "十分滑らかなスカラー場 f について常に成り立つ恒等式はどれか。",
+        choices: ["curl(grad f)=0", "div(grad f)=0", "grad(div f)=0", "curl f=grad f"],
+        answerIndex: 0,
+        explanation: "2階偏導関数の順序交換により、勾配場の回転は 0 になります。"
+      },
+      {
+        id: "vc-divergence-curl-identity",
+        sectionId: "vector-fields",
+        title: "回転の発散",
+        topic: "ベクトル恒等式",
+        difficulty: "standard",
+        prompt: "十分滑らかなベクトル場 F について常に成り立つ恒等式はどれか。",
+        choices: ["div(curl F)=0", "curl(div F)=0", "grad(curl F)=0", "div F=0"],
+        answerIndex: 0,
+        explanation: "回転の発散は混合偏導関数が打ち消し合うため 0 です。"
+      },
+      {
+        id: "vc-harmonic-function",
+        sectionId: "vector-fields",
+        title: "調和関数",
+        topic: "ラプラシアン",
+        difficulty: "standard",
+        prompt: "領域上で Delta f=0 を満たす関数は通常何と呼ばれるか。",
+        choices: ["調和関数", "保存関数", "発散関数", "閉曲面"],
+        answerIndex: 0,
+        explanation: "ラプラシアンが 0 であるスカラー場を調和関数と呼び、ポテンシャル論で重要です。"
+      },
+      {
+        id: "vc-product-rule-divergence",
+        sectionId: "vector-fields",
+        title: "発散の積の公式",
+        topic: "微分演算子",
+        difficulty: "advanced",
+        prompt: "スカラー場 f とベクトル場 F に対する div(fF) として正しいものはどれか。",
+        choices: ["grad f dot F + f div F", "f div F のみ", "grad f + div F", "curl f dot F"],
+        answerIndex: 0,
+        explanation: "成分ごとに積の微分法を使うと div(fF)=grad f dot F+f div F です。"
+      },
+      {
         id: "vc-curve-param",
         sectionId: "line-integrals",
         title: "曲線の速度ベクトル",
@@ -2188,6 +2232,41 @@ const subjects = [
         choices: ["phi(B)-phi(A)", "phi(A)+phi(B)", "0 に限る", "経路の長さ"],
         answerIndex: 0,
         explanation: "勾配場の線積分はポテンシャルの端点値の差で決まり、経路に依存しません。"
+      },
+      {
+        id: "vc-circulation-unit-circle",
+        sectionId: "line-integrals",
+        title: "円周上の循環",
+        topic: "循環",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "F=(-y,x)、C は単位円を反時計回りに1周する曲線とする。int_C F dot dr はどれか。",
+        choices: ["2pi", "pi", "0", "-2pi"],
+        answerIndex: 0,
+        explanation: "r(t)=(cos t,sin t), F(r(t))=(-sin t,cos t), r'(t)=(-sin t,cos t) なので内積は 1。0 から 2pi まで積分して 2pi です。"
+      },
+      {
+        id: "vc-line-integral-piecewise",
+        sectionId: "line-integrals",
+        title: "折れ線経路の線積分",
+        topic: "区分的滑らかな曲線",
+        difficulty: "standard",
+        prompt: "区分的に滑らかな曲線 C=C1+C2 上の int_C F dot dr について正しいものはどれか。",
+        choices: ["各区間の線積分の和になる", "最大の区間だけで決まる", "必ず 0 になる", "定義できない"],
+        answerIndex: 0,
+        explanation: "線積分はパラメータ区間ごとに分けて計算でき、区分的に滑らかな曲線では各部分の和になります。"
+      },
+      {
+        id: "vc-work-constant-field",
+        sectionId: "line-integrals",
+        title: "定ベクトル場の仕事",
+        topic: "仕事積分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "定ベクトル場 F=(2,1) に沿って点 (0,0) から (3,4) へ進むとき、int_C F dot dr はどれか。",
+        choices: ["10", "7", "5", "0"],
+        answerIndex: 0,
+        explanation: "定ベクトル場では F dot (終点-始点)=(2,1) dot (3,4)=6+4=10 です。"
       },
       {
         id: "vc-surface-param",
@@ -2259,6 +2338,40 @@ const subjects = [
         explanation: "閉曲面では領域から外へ向かう外向き法線を正の向きとして使うのが標準です。"
       },
       {
+        id: "vc-graph-surface-area",
+        sectionId: "surface-integrals",
+        title: "グラフ曲面の面積要素",
+        topic: "グラフ曲面",
+        difficulty: "advanced",
+        prompt: "曲面 z=g(x,y) の面積要素 dS として正しいものはどれか。",
+        choices: ["sqrt(1+g_x^2+g_y^2) dx dy", "g_x g_y dx dy", "sqrt(g_x^2+g_y^2) dx dy", "dx dy"],
+        answerIndex: 0,
+        explanation: "r(x,y)=(x,y,g(x,y)) と置くと |r_x x r_y|=sqrt(1+g_x^2+g_y^2) です。"
+      },
+      {
+        id: "vc-sphere-normal",
+        sectionId: "surface-integrals",
+        title: "球面の外向き法線",
+        topic: "法線ベクトル",
+        difficulty: "standard",
+        prompt: "半径 a の球面 x^2+y^2+z^2=a^2 上の外向き単位法線として正しいものはどれか。",
+        choices: ["(x,y,z)/a", "(x,y,z)", "(-x,-y,-z)/a", "(a,a,a)"],
+        answerIndex: 0,
+        explanation: "球面では位置ベクトルが外向き法線方向を向き、大きさが a なので単位法線は (x,y,z)/a です。"
+      },
+      {
+        id: "vc-scalar-surface-integral",
+        sectionId: "surface-integrals",
+        title: "スカラー場の面積分",
+        topic: "面積分",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "スカラー場 f=2 を面積 5 の曲面 S 上で面積分すると int_S f dS はどれか。",
+        choices: ["10", "5", "2", "0"],
+        answerIndex: 0,
+        explanation: "被積分関数が定数 2 なので、面積分は 2*area(S)=2*5=10 です。"
+      },
+      {
         id: "vc-conservative-definition",
         sectionId: "conservative-fields",
         title: "保存場の定義",
@@ -2313,6 +2426,40 @@ const subjects = [
         choices: ["0", "1", "曲線の長さ", "面積"],
         answerIndex: 0,
         explanation: "閉曲線では始点と終点が一致するため、ポテンシャルの差は 0 になります。"
+      },
+      {
+        id: "vc-plane-exactness-test",
+        sectionId: "conservative-fields",
+        title: "平面での完全性判定",
+        topic: "完全微分",
+        difficulty: "standard",
+        prompt: "単連結領域で F=(P,Q) が保存場であるための代表的な判定条件はどれか。",
+        choices: ["P_y=Q_x", "P_x=Q_y", "P=Q", "P_x+Q_y=1"],
+        answerIndex: 0,
+        explanation: "単連結領域では、回転成分 Q_x-P_y が 0、つまり P_y=Q_x であることが保存場の判定になります。"
+      },
+      {
+        id: "vc-non-simply-connected-caveat",
+        sectionId: "conservative-fields",
+        title: "単連結性の注意",
+        topic: "領域の位相",
+        difficulty: "advanced",
+        prompt: "穴のある領域で curl F=0 が成り立つとき、保存場について正しい注意はどれか。",
+        choices: ["保存場とは限らない", "必ず保存場である", "線積分は必ず正である", "発散定理が使えない"],
+        answerIndex: 0,
+        explanation: "単連結でない領域では curl F=0 でも大域的なポテンシャルが存在しない場合があります。"
+      },
+      {
+        id: "vc-potential-3d",
+        sectionId: "conservative-fields",
+        title: "3次元ポテンシャル",
+        topic: "ポテンシャル",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(yz,xz,xy) のポテンシャル phi として正しいものはどれか。",
+        choices: ["xyz", "x+y+z", "xy+yz+zx", "x^2 y z"],
+        answerIndex: 0,
+        explanation: "grad(xyz)=(yz,xz,xy) なので、phi=xyz がポテンシャルです。"
       },
       {
         id: "vc-green-theorem",
@@ -2371,6 +2518,52 @@ const subjects = [
         explanation: "div F=3 です。単位球の体積は 4pi/3 なので、発散定理より 3*(4pi/3)=4pi です。"
       },
       {
+        id: "vc-green-flux-form",
+        sectionId: "integral-theorems",
+        title: "Green の定理のフラックス形",
+        topic: "Green の定理",
+        difficulty: "advanced",
+        prompt: "平面領域 D の境界 C に対する Green の定理のフラックス形として正しいものはどれか。",
+        choices: ["int_C F dot n ds = int int_D div F dA", "int_C F dot dr = int int_D div F dA", "int_C F dot n ds = int int_D curl F dA", "int_C ds = div F"],
+        answerIndex: 0,
+        explanation: "平面での外向きフラックスは、領域内の発散の二重積分に等しくなります。"
+      },
+      {
+        id: "vc-stokes-flat-disk",
+        sectionId: "integral-theorems",
+        title: "Stokes の定理の計算",
+        topic: "Stokes の定理",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "F=(-y/2,x/2,0)、S は単位円板を上向きとする。int_{partial S} F dot dr はどれか。",
+        choices: ["pi", "2pi", "0", "-pi"],
+        answerIndex: 0,
+        explanation: "curl F=(0,0,1) なので、Stokes の定理より単位円板上の面積分は pi です。"
+      },
+      {
+        id: "vc-divergence-box",
+        sectionId: "integral-theorems",
+        title: "直方体での発散定理",
+        topic: "発散定理",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(x,0,0)、V=[0,2]x[0,3]x[0,4] の境界を外向きとする。総フラックスはどれか。",
+        choices: ["24", "12", "0", "48"],
+        answerIndex: 0,
+        explanation: "div F=1 なので、総フラックスは体積 2*3*4=24 に等しいです。"
+      },
+      {
+        id: "vc-boundary-orientation-stokes",
+        sectionId: "integral-theorems",
+        title: "Stokes の向き",
+        topic: "向き付け",
+        difficulty: "standard",
+        prompt: "Stokes の定理で曲面の法線を反対向きにしたとき、境界曲線の正の向きはどうなるか。",
+        choices: ["反対向きになる", "変わらない", "必ず反時計回りになる", "定義できなくなる"],
+        answerIndex: 0,
+        explanation: "境界の向きは右手系で法線と対応するため、法線を反転すると境界の正の向きも反転します。"
+      },
+      {
         id: "vc-polar-jacobian",
         sectionId: "curvilinear-coordinates",
         title: "極座標のヤコビアン",
@@ -2425,6 +2618,39 @@ const subjects = [
         choices: ["極座標", "直交座標だけ", "斜交座標だけ", "座標変換は使えない"],
         answerIndex: 0,
         explanation: "円板と半径だけに依存する関数は回転対称なので、極座標にすると領域と被積分関数が簡単になります。"
+      },
+      {
+        id: "vc-polar-gradient-radial",
+        sectionId: "curvilinear-coordinates",
+        title: "極座標での放射方向勾配",
+        topic: "曲線座標の微分",
+        difficulty: "standard",
+        prompt: "極座標で f=f(r) が半径 r だけに依存するとき、grad f の向きとして正しいものはどれか。",
+        choices: ["放射方向", "角度方向", "常に z 方向", "常に 0"],
+        answerIndex: 0,
+        explanation: "半径だけに依存する関数は同心円方向には変化せず、変化は放射方向にだけ現れます。"
+      },
+      {
+        id: "vc-cylindrical-divergence-radial",
+        sectionId: "curvilinear-coordinates",
+        title: "円柱座標の発散",
+        topic: "曲線座標の微分",
+        difficulty: "advanced",
+        prompt: "円柱座標で F=A_r(r)e_r の発散として正しい形はどれか。",
+        choices: ["(1/r) d(r A_r)/dr", "dA_r/dr", "r dA_r/dr", "A_r/r^2"],
+        answerIndex: 0,
+        explanation: "円柱座標の放射成分だけの場では div F=(1/r)d(rA_r)/dr です。"
+      },
+      {
+        id: "vc-spherical-radial-flux",
+        sectionId: "curvilinear-coordinates",
+        title: "球対称場のフラックス",
+        topic: "球座標",
+        difficulty: "advanced",
+        prompt: "球面上で F=f(r)e_r が球対称なら、半径 R の球面を通るフラックスはどれか。",
+        choices: ["4pi R^2 f(R)", "4pi R f(R)", "R^2 f(R)", "0"],
+        answerIndex: 0,
+        explanation: "球面上では F dot n=f(R) が一定で、面積が 4pi R^2 なのでフラックスは 4pi R^2 f(R) です。"
       }
     ]
   },
