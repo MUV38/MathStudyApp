@@ -2013,6 +2013,422 @@ const subjects = [
     ]
   },
   {
+    id: "vector-calculus",
+    name: "ベクトル解析",
+    description: "ベクトル場、線積分、面積分、Green・Stokes・Gauss の定理を多変数微積分と線形代数の延長として学びます。",
+    enabled: true,
+    sections: [
+      {
+        id: "vector-fields",
+        title: "1. ベクトル場と微分演算子",
+        description: "スカラー場、ベクトル場、勾配、発散、回転、ラプラシアンを確認します。"
+      },
+      {
+        id: "line-integrals",
+        title: "2. 曲線と線積分",
+        description: "曲線のパラメータ表示、スカラー場の線積分、ベクトル場の仕事積分を扱います。"
+      },
+      {
+        id: "surface-integrals",
+        title: "3. 曲面と面積分",
+        description: "曲面のパラメータ表示、法線ベクトル、面素、フラックスを計算します。"
+      },
+      {
+        id: "conservative-fields",
+        title: "4. 保存場とポテンシャル",
+        description: "経路独立性、ポテンシャル関数、完全微分、単連結領域での判定を学びます。"
+      },
+      {
+        id: "integral-theorems",
+        title: "5. 積分定理",
+        description: "Green の定理、Stokes の定理、Gauss の発散定理を結びつけて理解します。"
+      },
+      {
+        id: "curvilinear-coordinates",
+        title: "6. 曲線座標と応用",
+        description: "極座標、円柱座標、球座標、ヤコビアン、対称性を使う積分を扱います。"
+      }
+    ],
+    problems: [
+      {
+        id: "vc-scalar-vector-field",
+        sectionId: "vector-fields",
+        title: "スカラー場とベクトル場",
+        topic: "場の種類",
+        difficulty: "basic",
+        prompt: "各点 (x,y) にベクトル (x,-y) を対応させるものはどれか。",
+        choices: ["ベクトル場", "スカラー場", "数列", "行列式"],
+        answerIndex: 0,
+        explanation: "点ごとに数ではなくベクトルを対応させるのでベクトル場です。"
+      },
+      {
+        id: "vc-gradient-basic",
+        sectionId: "vector-fields",
+        title: "勾配の計算",
+        topic: "勾配",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "f(x,y,z)=x^2+yz の勾配 grad f はどれか。",
+        choices: ["(2x,z,y)", "(x^2,z,y)", "(2x,y,z)", "(2x,0,z)"],
+        answerIndex: 0,
+        explanation: "各変数で偏微分すると f_x=2x, f_y=z, f_z=y なので grad f=(2x,z,y) です。"
+      },
+      {
+        id: "vc-divergence-basic",
+        sectionId: "vector-fields",
+        title: "発散の計算",
+        topic: "発散",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "F=(x^2, y^2, z^2) の div F はどれか。",
+        choices: ["2x+2y+2z", "x^2+y^2+z^2", "(2x,2y,2z)", "0"],
+        answerIndex: 0,
+        explanation: "div F は各成分を対応する変数で微分して足すので 2x+2y+2z です。"
+      },
+      {
+        id: "vc-curl-basic",
+        sectionId: "vector-fields",
+        title: "回転の計算",
+        topic: "回転",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(-y,x,0) の curl F はどれか。",
+        choices: ["(0,0,2)", "(0,0,0)", "(1,-1,0)", "(-x,-y,0)"],
+        answerIndex: 0,
+        explanation: "curl F=(R_y-Q_z, P_z-R_x, Q_x-P_y) です。ここでは第3成分が 1-(-1)=2 になります。"
+      },
+      {
+        id: "vc-laplacian",
+        sectionId: "vector-fields",
+        title: "ラプラシアン",
+        topic: "ラプラシアン",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "f(x,y)=x^2-y^2 のラプラシアン Delta f はどれか。",
+        choices: ["0", "2", "-2", "x-y"],
+        answerIndex: 0,
+        explanation: "Delta f=f_xx+f_yy です。f_xx=2, f_yy=-2 なので Delta f=0 です。"
+      },
+      {
+        id: "vc-grad-direction",
+        sectionId: "vector-fields",
+        title: "勾配の向き",
+        topic: "勾配の意味",
+        difficulty: "standard",
+        prompt: "勾配ベクトル grad f が表す性質として正しいものはどれか。",
+        choices: ["f が最も増加する方向を向く", "常に曲線の接線方向を向く", "常にゼロベクトルである", "面積要素を表す"],
+        answerIndex: 0,
+        explanation: "grad f は方向微分を最大にする方向を向き、その大きさが最大増加率を表します。"
+      },
+      {
+        id: "vc-curve-param",
+        sectionId: "line-integrals",
+        title: "曲線の速度ベクトル",
+        topic: "パラメータ表示",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "r(t)=(t,t^2,0) の速度ベクトル r'(t) はどれか。",
+        choices: ["(1,2t,0)", "(t,2t,0)", "(1,t,0)", "(0,2t,0)"],
+        answerIndex: 0,
+        explanation: "各成分を t で微分して r'(t)=(1,2t,0) です。"
+      },
+      {
+        id: "vc-arc-length-element",
+        sectionId: "line-integrals",
+        title: "弧長要素",
+        topic: "弧長",
+        difficulty: "standard",
+        prompt: "曲線 r(t) に沿うスカラー場の線積分で ds に対応するものはどれか。",
+        choices: ["|r'(t)| dt", "r'(t) dt", "grad f dt", "dt/|r'(t)|"],
+        answerIndex: 0,
+        explanation: "弧長要素は曲線の速度の大きさを使って ds=|r'(t)|dt と表されます。"
+      },
+      {
+        id: "vc-line-integral-scalar",
+        sectionId: "line-integrals",
+        title: "スカラー場の線積分",
+        topic: "線積分",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "f(x,y)=x, C: r(t)=(t,0), 0<=t<=2 とする。int_C f ds はどれか。",
+        choices: ["2", "1", "4", "0"],
+        answerIndex: 0,
+        explanation: "f(r(t))=t, |r'(t)|=1 なので int_0^2 t dt=2 です。"
+      },
+      {
+        id: "vc-line-integral-vector",
+        sectionId: "line-integrals",
+        title: "仕事積分",
+        topic: "ベクトル場の線積分",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(x,y), C: r(t)=(t,t), 0<=t<=1 とする。int_C F dot dr はどれか。",
+        choices: ["1", "2", "1/2", "0"],
+        answerIndex: 0,
+        explanation: "F(r(t))=(t,t), r'(t)=(1,1) なので内積は 2t。int_0^1 2t dt=1 です。"
+      },
+      {
+        id: "vc-orientation-line",
+        sectionId: "line-integrals",
+        title: "向きと線積分",
+        topic: "曲線の向き",
+        difficulty: "standard",
+        prompt: "ベクトル場の線積分 int_C F dot dr で曲線の向きを逆にすると値はどうなるか。",
+        choices: ["符号が反対になる", "常に同じになる", "必ず 0 になる", "2倍になる"],
+        answerIndex: 0,
+        explanation: "dr の向きが反転するため、同じ経路を逆向きにたどる仕事積分は符号が反対になります。"
+      },
+      {
+        id: "vc-fundamental-line-integral",
+        sectionId: "line-integrals",
+        title: "線積分の基本定理",
+        topic: "保存場",
+        difficulty: "advanced",
+        prompt: "F=grad phi のとき、点 A から点 B への線積分 int_C F dot dr はどれか。",
+        choices: ["phi(B)-phi(A)", "phi(A)+phi(B)", "0 に限る", "経路の長さ"],
+        answerIndex: 0,
+        explanation: "勾配場の線積分はポテンシャルの端点値の差で決まり、経路に依存しません。"
+      },
+      {
+        id: "vc-surface-param",
+        sectionId: "surface-integrals",
+        title: "曲面の接ベクトル",
+        topic: "曲面のパラメータ表示",
+        difficulty: "basic",
+        type: "calculation",
+        prompt: "r(u,v)=(u,v,u+v) の r_u と r_v はどれか。",
+        choices: ["(1,0,1), (0,1,1)", "(u,0,1), (0,v,1)", "(1,1,0), (0,0,1)", "(u,v,1), (1,1,0)"],
+        answerIndex: 0,
+        explanation: "u と v でそれぞれ偏微分して r_u=(1,0,1), r_v=(0,1,1) です。"
+      },
+      {
+        id: "vc-surface-normal",
+        sectionId: "surface-integrals",
+        title: "法線ベクトル",
+        topic: "外積",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "r(u,v)=(u,v,0) に対し r_u x r_v はどれか。",
+        choices: ["(0,0,1)", "(0,0,-1)", "(1,1,0)", "(u,v,0)"],
+        answerIndex: 0,
+        explanation: "r_u=(1,0,0), r_v=(0,1,0) なので外積は (0,0,1) です。"
+      },
+      {
+        id: "vc-surface-area-element",
+        sectionId: "surface-integrals",
+        title: "面積要素",
+        topic: "面積分",
+        difficulty: "standard",
+        prompt: "パラメータ表示 r(u,v) の曲面で面積要素 dS に対応するものはどれか。",
+        choices: ["|r_u x r_v| du dv", "r_u dot r_v du dv", "|r_u+r_v| du dv", "du+dv"],
+        answerIndex: 0,
+        explanation: "接ベクトルが張る微小平行四辺形の面積は外積の大きさで表されます。"
+      },
+      {
+        id: "vc-flux-plane",
+        sectionId: "surface-integrals",
+        title: "平面を通るフラックス",
+        topic: "フラックス",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(0,0,3)、S は xy 平面上の単位正方形、上向き法線とする。int_S F dot n dS はどれか。",
+        choices: ["3", "1", "0", "-3"],
+        answerIndex: 0,
+        explanation: "上向き単位法線は (0,0,1) なので F dot n=3。面積が 1 のためフラックスは 3 です。"
+      },
+      {
+        id: "vc-orientation-surface",
+        sectionId: "surface-integrals",
+        title: "曲面の向き",
+        topic: "向き付け",
+        difficulty: "standard",
+        prompt: "向き付けられた曲面の法線を反対向きにするとフラックス積分はどうなるか。",
+        choices: ["符号が反対になる", "常に同じになる", "必ず正になる", "面積分が定義できなくなる"],
+        answerIndex: 0,
+        explanation: "法線ベクトル n が -n に変わるため、F dot n dS の符号が反転します。"
+      },
+      {
+        id: "vc-closed-surface",
+        sectionId: "surface-integrals",
+        title: "閉曲面の標準的な向き",
+        topic: "閉曲面",
+        difficulty: "basic",
+        prompt: "閉曲面のフラックスで通常用いる正の向きはどれか。",
+        choices: ["外向き法線", "内向き法線", "任意の接線方向", "z 軸正方向だけ"],
+        answerIndex: 0,
+        explanation: "閉曲面では領域から外へ向かう外向き法線を正の向きとして使うのが標準です。"
+      },
+      {
+        id: "vc-conservative-definition",
+        sectionId: "conservative-fields",
+        title: "保存場の定義",
+        topic: "保存場",
+        difficulty: "basic",
+        prompt: "ベクトル場 F が保存場であることの説明として正しいものはどれか。",
+        choices: ["あるスカラー関数 phi が存在して F=grad phi と書ける", "発散が常に 1 である", "回転が常に無限大である", "曲面上でだけ定義される"],
+        answerIndex: 0,
+        explanation: "保存場とはポテンシャル関数 phi の勾配として表せるベクトル場です。"
+      },
+      {
+        id: "vc-potential-basic",
+        sectionId: "conservative-fields",
+        title: "ポテンシャルの計算",
+        topic: "ポテンシャル",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "F=(2x,2y) のポテンシャル phi として正しいものはどれか。",
+        choices: ["x^2+y^2", "2x+2y", "xy", "x^2-y^2"],
+        answerIndex: 0,
+        explanation: "grad(x^2+y^2)=(2x,2y) なので phi=x^2+y^2 がポテンシャルです。"
+      },
+      {
+        id: "vc-path-independence",
+        sectionId: "conservative-fields",
+        title: "経路独立性",
+        topic: "経路独立",
+        difficulty: "standard",
+        prompt: "保存場の線積分について正しいものはどれか。",
+        choices: ["端点だけで決まり経路に依存しない", "曲線の長さだけで決まる", "必ず正である", "閉曲線上では必ず 1 になる"],
+        answerIndex: 0,
+        explanation: "保存場では線積分がポテンシャルの端点値の差に等しいため、経路に依存しません。"
+      },
+      {
+        id: "vc-curl-free-test",
+        sectionId: "conservative-fields",
+        title: "保存場の判定",
+        topic: "回転なし",
+        difficulty: "advanced",
+        prompt: "単連結領域で滑らかな 3次元ベクトル場 F が保存場であるための代表的な判定条件はどれか。",
+        choices: ["curl F=0", "div F=1", "F が定数でない", "F dot F=0"],
+        answerIndex: 0,
+        explanation: "単連結領域では、滑らかなベクトル場について curl F=0 が保存場であることと同値になります。"
+      },
+      {
+        id: "vc-closed-loop-conservative",
+        sectionId: "conservative-fields",
+        title: "閉曲線上の線積分",
+        topic: "保存場",
+        difficulty: "standard",
+        prompt: "保存場 F に対して任意の閉曲線 C 上の int_C F dot dr はどれか。",
+        choices: ["0", "1", "曲線の長さ", "面積"],
+        answerIndex: 0,
+        explanation: "閉曲線では始点と終点が一致するため、ポテンシャルの差は 0 になります。"
+      },
+      {
+        id: "vc-green-theorem",
+        sectionId: "integral-theorems",
+        title: "Green の定理",
+        topic: "Green の定理",
+        difficulty: "standard",
+        prompt: "平面領域 D の正向き境界 C に対する Green の定理として正しいものはどれか。",
+        choices: ["int_C P dx+Q dy = int int_D (Q_x-P_y) dA", "int_C P dx+Q dy = int int_D (P_x+Q_y) dA", "int_C P dx = P+Q", "int int_D Q_x dA = 0"],
+        answerIndex: 0,
+        explanation: "Green の定理は境界上の線積分を領域上の回転成分 Q_x-P_y の二重積分に変換します。"
+      },
+      {
+        id: "vc-green-area",
+        sectionId: "integral-theorems",
+        title: "Green の定理と面積",
+        topic: "面積公式",
+        difficulty: "advanced",
+        prompt: "正向き単純閉曲線 C が囲む面積 A を表す式として正しいものはどれか。",
+        choices: ["A=1/2 int_C x dy-y dx", "A=int_C x dx+y dy", "A=int_C ds", "A=int_C x dy+y dx"],
+        answerIndex: 0,
+        explanation: "P=-y/2, Q=x/2 と置くと Q_x-P_y=1 となり、Green の定理から面積公式が得られます。"
+      },
+      {
+        id: "vc-stokes-theorem",
+        sectionId: "integral-theorems",
+        title: "Stokes の定理",
+        topic: "Stokes の定理",
+        difficulty: "advanced",
+        prompt: "曲面 S の境界を C とするとき、Stokes の定理として正しいものはどれか。",
+        choices: ["int_C F dot dr = int_S curl F dot n dS", "int_S F dot n dS = int_V div F dV", "int_C F dot dr = int_S div F dS", "int_S grad F dS = 0"],
+        answerIndex: 0,
+        explanation: "Stokes の定理は境界曲線上の循環を、曲面上の回転のフラックスに変換します。"
+      },
+      {
+        id: "vc-divergence-theorem",
+        sectionId: "integral-theorems",
+        title: "Gauss の発散定理",
+        topic: "発散定理",
+        difficulty: "advanced",
+        prompt: "閉曲面 S が囲む立体 V に対する発散定理として正しいものはどれか。",
+        choices: ["int_S F dot n dS = int_V div F dV", "int_C F dot dr = int_S F dS", "int_V curl F dV = int_S div F dS", "int_S F dot n dS = 0 に限る"],
+        answerIndex: 0,
+        explanation: "Gauss の発散定理は閉曲面を通る総フラックスを、内部領域での発散の体積積分に変換します。"
+      },
+      {
+        id: "vc-divergence-sphere",
+        sectionId: "integral-theorems",
+        title: "発散定理の計算",
+        topic: "発散定理",
+        difficulty: "advanced",
+        type: "calculation",
+        prompt: "F=(x,y,z)、S は半径 1 の球面外向きとする。int_S F dot n dS はどれか。",
+        choices: ["4pi", "3", "4pi/3", "0"],
+        answerIndex: 0,
+        explanation: "div F=3 です。単位球の体積は 4pi/3 なので、発散定理より 3*(4pi/3)=4pi です。"
+      },
+      {
+        id: "vc-polar-jacobian",
+        sectionId: "curvilinear-coordinates",
+        title: "極座標のヤコビアン",
+        topic: "極座標",
+        difficulty: "basic",
+        prompt: "極座標 x=r cos(theta), y=r sin(theta) の面積要素はどれか。",
+        choices: ["r dr dtheta", "dr dtheta", "r^2 dr dtheta", "1/r dr dtheta"],
+        answerIndex: 0,
+        explanation: "極座標ではヤコビアンの絶対値が r なので dA=r dr dtheta です。"
+      },
+      {
+        id: "vc-cylindrical-volume",
+        sectionId: "curvilinear-coordinates",
+        title: "円柱座標の体積要素",
+        topic: "円柱座標",
+        difficulty: "basic",
+        prompt: "円柱座標 (r,theta,z) の体積要素 dV として正しいものはどれか。",
+        choices: ["r dr dtheta dz", "dr dtheta dz", "r^2 sin(phi) dr dtheta dz", "dz/r"],
+        answerIndex: 0,
+        explanation: "xy 平面の極座標部分でヤコビアン r が現れるため、dV=r dr dtheta dz です。"
+      },
+      {
+        id: "vc-spherical-volume",
+        sectionId: "curvilinear-coordinates",
+        title: "球座標の体積要素",
+        topic: "球座標",
+        difficulty: "standard",
+        prompt: "球座標 (rho,theta,phi) で dV として正しいものはどれか。ただし phi は z 軸からの角とする。",
+        choices: ["rho^2 sin(phi) d rho dtheta dphi", "rho d rho dtheta dphi", "sin(theta) d rho dtheta dphi", "rho^2 d rho dtheta dphi"],
+        answerIndex: 0,
+        explanation: "球座標のヤコビアンは rho^2 sin(phi) です。"
+      },
+      {
+        id: "vc-disk-area-polar",
+        sectionId: "curvilinear-coordinates",
+        title: "極座標での面積",
+        topic: "極座標積分",
+        difficulty: "standard",
+        type: "calculation",
+        prompt: "半径 2 の円板の面積を極座標で計算するとどれか。",
+        choices: ["4pi", "2pi", "pi", "8pi"],
+        answerIndex: 0,
+        explanation: "int_0^{2pi} int_0^2 r dr dtheta = 2pi*2 = 4pi です。"
+      },
+      {
+        id: "vc-radial-symmetry",
+        sectionId: "curvilinear-coordinates",
+        title: "対称性の利用",
+        topic: "対称性",
+        difficulty: "standard",
+        prompt: "円板上で半径 r だけに依存する関数を積分するとき有効な座標はどれか。",
+        choices: ["極座標", "直交座標だけ", "斜交座標だけ", "座標変換は使えない"],
+        answerIndex: 0,
+        explanation: "円板と半径だけに依存する関数は回転対称なので、極座標にすると領域と被積分関数が簡単になります。"
+      }
+    ]
+  },
+  {
     id: "abstract-algebra",
     name: "抽象代数",
     description: "群、環、体、準同型、商構造、ガロア理論の入口を学びます。",
