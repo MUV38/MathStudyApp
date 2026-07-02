@@ -19,6 +19,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   </head>
   <body>
+    <div id="sidebarBackdrop" class="sidebar-backdrop" hidden></div>
     <header class="topbar">
       <div>
         <p class="eyebrow">University Mathematics</p>
@@ -32,7 +33,11 @@
     </header>
 
     <main class="layout">
-      <aside class="sidebar" aria-label="分野とモード">
+      <aside id="sidebar" class="sidebar" aria-label="分野とモード">
+        <div class="sidebar-mobile-head">
+          <strong>学習メニュー</strong>
+          <button id="closeSidebarButton" class="icon-button" type="button" aria-label="メニューを閉じる">×</button>
+        </div>
         <section class="panel">
           <h2>分野</h2>
           <div id="subjectList" class="subject-list"></div>
@@ -55,7 +60,11 @@
 
       <section class="workspace" aria-live="polite">
         <div class="workspace-head">
-          <div>
+          <div class="workspace-title">
+            <button id="openSidebarButton" class="menu-button" type="button" aria-controls="sidebar" aria-expanded="false">
+              <span aria-hidden="true">☰</span>
+              分野・章
+            </button>
             <p id="currentSubjectLabel" class="eyebrow">線形代数</p>
             <h2 id="modeTitle">問題演習</h2>
             <p id="currentSectionLabel" class="section-label">1. ベクトルと一次独立</p>
